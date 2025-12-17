@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>틱택토 게임</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+        .scoreboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .score-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .score-card.x { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .score-card.o { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .score-card.draw { background: linear-gradient(135deg, #6b7280, #4b5563); }
+        .score-number { font-size: 2.5em; font-weight: bold; }
+        .score-label { font-size: 0.9em; opacity: 0.9; margin-top: 5px; }
+        .status {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            height: 40px;
+            color: #667eea;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 20px;
+        }
+        .cell {
+            aspect-ratio: 1;
+            background: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .cell:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .cell:active:not(:disabled) { transform: scale(0.95); }
+        .cell.x { color: #3b82f6; }
+        .cell.o { color: #ef4444; }
+        .cell.winner {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            transform: scale(1.1);
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        button.btn {
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+        .btn-new { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .btn-reset { background: linear-gradient(135deg, #6b7280, #4b5563); }
+        button.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+        button.btn:active { transform: translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>틱택토</h1>
+        <div class="scoreboard">
+            <div class="score-card x">
+                <div class="score-number" id="scoreX">0</div>
+                <div class="score-label">플레이어 X</div>
+            </div>
+            <div class="score-card draw">
+                <div class="score-number" id="scoreDraw">0</div>
+                <div class="score-label">무승부</div>
+            </div>
+            <div class="score-card o">
+                <div class="score-number" id="scoreO">0</div>
+                <div class="score-label">플레이어 O</div>
+            </div>
+        </div>
+        <div class="status" id="status">플레이어 X의 차례</div>
+        <div class="board" id="board"></div>
+        <div class="buttons">
+            <button class="btn btn-new" onclick="newGame()">새 게임</button>
+            <button class="btn btn-reset" onclick="resetAll()">전체 초기화</button>
+        </div>
+    </div>
+    <script>
+        let board = Array(9).fill(null);
+        let isXNext = true;
+        let gameOver = false;
+        let scores = { X: 0, O: 0, draw: 0 };
+
+        const winPatterns = [
+            [0,1,2], [3,4,5], [6,7,8],
+            [0,3,6], [1,4,7], [2,5,8],
+            [0,4,8], [2,4,6]
+        ];
+
+        function initBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('button');
+                cell.className = 'cell';
+                cell.onclick = () => handleClick(i);
+                boardEl.appendChild(cell);
+            }
+            updateBoard();
+        }
+
+        function handleClick(i) {
+            if (board[i] || gameOver) return;
+            board[i] = isXNext ? 'X' : 'O';
+            isXNext = !isXNext;
+            const result = checkWinner();
+            if (result) {
+                gameOver = true;
+                scores[result.winner]++;
+                updateScores();
+                document.getElementById('status').textContent = '플레이어 ' + result.winner + ' 승리!';
+                highlightWinner(result.line);
+            } else if (board.every(cell => cell)) {
+                gameOver = true;
+                scores.draw++;
+                updateScores();
+                document.getElementById('status').textContent = '무승부입니다!';
+            } else {
+                document.getElementById('status').textContent = '플레이어 ' + (isXNext ? 'X' : 'O') + '의 차례';
+            }
+            updateBoard();
+        }
+
+        function checkWinner() {
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    return { winner: board[a], line: pattern };
+                }
+            }
+            return null;
+        }
+
+        function highlightWinner(line) {
+            const cells = document.querySelectorAll('.cell');
+            line.forEach(i => cells[i].classList.add('winner'));
+        }
+
+        function updateBoard() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach((cell, i) => {
+                cell.textContent = board[i] || '';
+                cell.className = 'cell';
+                if (board[i]) cell.classList.add(board[i].toLowerCase());
+            });
+        }
+
+        function updateScores() {
+            document.getElementById('scoreX').textContent = scores.X;
+            document.getElementById('scoreO').textContent = scores.O;
+            document.getElementById('scoreDraw').textContent = scores.draw;
+        }
+
+        function newGame() {
+            board = Array(9).fill(null);
+            isXNext = true;
+            gameOver = false;
+            document.getElementById('status').textContent = '플레이어 X의 차례';
+            updateBoard();
+        }
+
+        function resetAll() {
+            newGame();
+            scores = { X: 0, O: 0, draw: 0 };
+            updateScores();
+        }
+
+        initBoard();
+    </script>
+</body>
+</html>
