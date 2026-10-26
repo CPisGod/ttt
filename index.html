@@ -49,6 +49,11 @@ input[type=color]{width:30px;height:30px;padding:0;border:1px solid var(--line);
 #busy{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:25;background:var(--panel);
   border:1px solid var(--line);padding:12px 18px;border-radius:10px}
 #nogl{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:#1b2028;padding:20px;text-align:center}
+#edit{right:10px;bottom:10px;padding:10px 12px;font-size:12.5px;width:min(300px,calc(100vw - 20px))}
+#edit .row{display:flex;flex-wrap:wrap;gap:5px;align-items:center;margin-top:7px}
+#edit .row:first-child{margin-top:0}
+#edit .lab{color:var(--muted);width:100%}
+#edit button,#edit select{padding:6px 9px}
 @media (max-width:700px){#help{display:none}}
 </style>
 </head>
@@ -73,6 +78,7 @@ input[type=color]{width:30px;height:30px;padding:0;border:1px solid var(--line);
   <button id="btnAuto">자동 회전</button>
   <input type="color" id="bgColor" value="#1b2028" title="배경색">
   <span class="sep"></span>
+  <button id="btnEdit" title="반전·회전 등 모델 편집과 저장">편집</button>
   <button id="btnReset" title="뷰 초기화 (R)">뷰 리셋</button>
   <button id="btnShot">스크린샷</button>
 </div>
@@ -93,6 +99,18 @@ input[type=color]{width:30px;height:30px;padding:0;border:1px solid var(--line);
 <div id="info" class="bar" hidden></div>
 <div id="help" class="bar">
   왼쪽 드래그: 회전<br>우클릭/Shift 드래그: 이동<br>휠: 확대·축소 &nbsp;|&nbsp; 더블클릭: 리셋<br>R 리셋 · W 와이어 · G 격자
+</div>
+<div id="edit" class="bar" hidden>
+  <div class="row"><span class="lab">반전 (화면 기준)</span>
+    <button data-flip="0">좌우</button><button data-flip="1">상하</button><button data-flip="2">앞뒤</button></div>
+  <div class="row"><span class="lab">90° 회전 (화면 축 기준)</span>
+    <button data-rot="0,-1">X −</button><button data-rot="0,1">X +</button>
+    <button data-rot="1,-1">Y −</button><button data-rot="1,1">Y +</button>
+    <button data-rot="2,-1">Z −</button><button data-rot="2,1">Z +</button></div>
+  <div class="row"><button id="btnEditReset">편집 초기화</button></div>
+  <div class="row"><span class="lab">편집한 모델 저장</span>
+    <select id="expFmt"><option value="obj">OBJ</option><option value="stl">STL</option><option value="ply">PLY</option></select>
+    <button id="btnExport" class="primary">저장</button></div>
 </div>
 <div id="mask">여기에 놓으면 열려요</div>
 <div id="busy" hidden>불러오는 중…</div>
@@ -807,10 +825,15 @@ function makeSample(){
     for (const k of ['bPos', 'bNS', 'bNF', 'bCol', 'bWire', 'bPt', 'bPtCol']) if (G[k]) gl.deleteBuffer(G[k]);
     G = null;
   }
+  const I3 = () => [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+  const mul3 = (a, b) => a.map((_, i) => [0, 1, 2].map(j => a[i][0] * b[0][j] + a[i][1] * b[1][j] + a[i][2] * b[2][j]));
+  const det3 = (m) => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
+  // 화면(뷰) 기준 편집 행렬 E 를 Z-up 보정 뒤에 적용: 최종 R = E · Zup
+  function currentR(){ return mul3(G.E, S.zup ? [[1, 0, 0], [0, 0, 1], [0, -1, 0]] : I3()); }
   function buildModelMatrix(){
     const b = G.r.bbox, c = [0, 1, 2].map(i => (b.min[i] + b.max[i]) / 2), ext = [0, 1, 2].map(i => b.max[i] - b.min[i]);
     const maxD = Math.max(ext[0], ext[1], ext[2]) || 1, s = 2 / maxD;
-    const R = S.zup ? [[1, 0, 0], [0, 0, 1], [0, -1, 0]] : [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    const R = currentR();
     const M = new Float32Array(16);
     for (let col = 0; col < 3; col++) for (let row = 0; row < 3; row++) M[col * 4 + row] = s * R[row][col];
     for (let row = 0; row < 3; row++) M[12 + row] = -s * (R[row][0] * c[0] + R[row][1] * c[1] + R[row][2] * c[2]);
@@ -832,7 +855,7 @@ function makeSample(){
   function setModel(r, name){
     disposeModel();
     const nTri = Math.floor(r.pos.length / 9);
-    G = { r, nTri, nPt: r.pts ? r.pts.pos.length / 3 : 0 };
+    G = { r, name, E: I3(), nTri, nPt: r.pts ? r.pts.pos.length / 3 : 0 };
     if (nTri) { G.bPos = mkBuf(r.pos); G.bNS = mkBuf(r.nrm); G.bCol = r.col ? mkBuf(r.col) : null; }
     if (G.nPt) { G.bPt = mkBuf(r.pts.pos); G.bPtCol = r.pts.col ? mkBuf(r.pts.col) : null; }
     S.zup = !!r.meta.zup; buildModelMatrix(); resetView(); showInfo(name, r); syncUI();
@@ -1026,6 +1049,101 @@ function makeSample(){
     else if (k === 'w') setMode(S.mode === 'solid' ? 'wire' : S.mode === 'wire' ? 'both' : 'solid');
     else if (k === 'g') { S.grid = !S.grid; syncUI(); requestRender(); }
   });
+
+  /* ---- 모델 편집 (반전 / 회전 / 저장) ---- */
+  function applyEdit(T){ if (!G) return; G.E = mul3(T, G.E); buildModelMatrix(); requestRender(); }
+  function flipT(ax){ const T = I3(); T[ax][ax] = -1; return T; }
+  function rotT(ax, dir){
+    const a = (ax + 1) % 3, b = (ax + 2) % 3, T = I3();
+    T[a][a] = 0; T[b][b] = 0; T[a][b] = -dir; T[b][a] = dir; return T;
+  }
+  document.querySelectorAll('[data-flip]').forEach(b => b.onclick = () => applyEdit(flipT(+b.dataset.flip)));
+  document.querySelectorAll('[data-rot]').forEach(b => b.onclick = () => { const [ax, d] = b.dataset.rot.split(',').map(Number); applyEdit(rotT(ax, d)); });
+  $('#btnEditReset').onclick = () => { if (G) { G.E = I3(); buildModelMatrix(); requestRender(); } };
+  $('#btnEdit').onclick = () => { const e = $('#edit'); e.hidden = !e.hidden; $('#btnEdit').classList.toggle('on', !e.hidden); $('#help').hidden = !e.hidden; };
+
+  function bakeEdit(r, R){
+    const flip = det3(R) < 0;
+    const xf = (a, normal) => {
+      if (!a) return null; const o = new Float32Array(a.length);
+      for (let i = 0; i + 2 < a.length; i += 3) { const x = a[i], y = a[i + 1], z = a[i + 2];
+        o[i] = R[0][0] * x + R[0][1] * y + R[0][2] * z; o[i + 1] = R[1][0] * x + R[1][1] * y + R[1][2] * z; o[i + 2] = R[2][0] * x + R[2][1] * y + R[2][2] * z; }
+      return o;
+    };
+    const swap = (a) => { if (!a || !flip) return a;
+      for (let t = 0; t + 8 < a.length; t += 9) for (let k = 0; k < 3; k++) { const v = a[t + 3 + k]; a[t + 3 + k] = a[t + 6 + k]; a[t + 6 + k] = v; }
+      return a; };
+    return { pos: swap(xf(r.pos)), nrm: swap(xf(r.nrm)), col: swap(r.col ? r.col.slice() : null),
+      pts: r.pts ? { pos: xf(r.pts.pos), col: r.pts.col } : null };
+  }
+  const f6 = (v) => (Math.abs(v) < 1e-9 ? 0 : +v.toFixed(6));
+  function toOBJ(m, name){
+    const parts = ['# edited with 3D 모델 뷰어\no ' + name.replace(/\.[^.]+$/, '').replace(/\s+/g, '_') + '\n'];
+    const nv = m.pos.length / 3, nt = nv / 3;
+    for (let i = 0; i < nv; i += 20000) {
+      let s = ''; const e = Math.min(nv, i + 20000);
+      for (let v = i; v < e; v++) { s += 'v ' + f6(m.pos[v * 3]) + ' ' + f6(m.pos[v * 3 + 1]) + ' ' + f6(m.pos[v * 3 + 2]);
+        if (m.col) s += ' ' + f6(m.col[v * 3]) + ' ' + f6(m.col[v * 3 + 1]) + ' ' + f6(m.col[v * 3 + 2]); s += '\n'; }
+      parts.push(s);
+    }
+    if (m.nrm) for (let i = 0; i < nv; i += 20000) {
+      let s = ''; const e = Math.min(nv, i + 20000);
+      for (let v = i; v < e; v++) s += 'vn ' + f6(m.nrm[v * 3]) + ' ' + f6(m.nrm[v * 3 + 1]) + ' ' + f6(m.nrm[v * 3 + 2]) + '\n';
+      parts.push(s);
+    }
+    for (let i = 0; i < nt; i += 20000) {
+      let s = ''; const e = Math.min(nt, i + 20000);
+      for (let t = i; t < e; t++) { const a = t * 3 + 1, b = a + 1, c = a + 2;
+        s += m.nrm ? 'f ' + a + '//' + a + ' ' + b + '//' + b + ' ' + c + '//' + c + '\n' : 'f ' + a + ' ' + b + ' ' + c + '\n'; }
+      parts.push(s);
+    }
+    if (m.pts) { const p = m.pts.pos; for (let v = 0; v < p.length; v += 3) parts.push('v ' + f6(p[v]) + ' ' + f6(p[v + 1]) + ' ' + f6(p[v + 2]) + '\n'); }
+    return new Blob(parts, { type: 'text/plain' });
+  }
+  function toSTL(m){
+    const nt = m.pos.length / 9, buf = new ArrayBuffer(84 + nt * 50), dv = new DataView(buf), p = m.pos;
+    dv.setUint32(80, nt, true);
+    for (let t = 0, o = 84; t < nt; t++, o += 50) {
+      const b = t * 9;
+      const e1 = [p[b + 3] - p[b], p[b + 4] - p[b + 1], p[b + 5] - p[b + 2]], e2 = [p[b + 6] - p[b], p[b + 7] - p[b + 1], p[b + 8] - p[b + 2]];
+      let x = e1[1] * e2[2] - e1[2] * e2[1], y = e1[2] * e2[0] - e1[0] * e2[2], z = e1[0] * e2[1] - e1[1] * e2[0];
+      const l = Math.hypot(x, y, z) || 1; dv.setFloat32(o, x / l, true); dv.setFloat32(o + 4, y / l, true); dv.setFloat32(o + 8, z / l, true);
+      for (let k = 0; k < 9; k++) dv.setFloat32(o + 12 + k * 4, p[b + k], true);
+    }
+    return new Blob([buf], { type: 'model/stl' });
+  }
+  function toPLY(m){
+    const nTri = m.pos.length / 9, nV = nTri * 3, nP = m.pts ? m.pts.pos.length / 3 : 0;
+    const hasC = !!m.col || (nP && m.pts.col), hasN = !!m.nrm;
+    const head = 'ply\nformat binary_little_endian 1.0\ncomment edited with 3D viewer\nelement vertex ' + (nV + nP) + '\nproperty float x\nproperty float y\nproperty float z\n' +
+      (hasN ? 'property float nx\nproperty float ny\nproperty float nz\n' : '') + (hasC ? 'property uchar red\nproperty uchar green\nproperty uchar blue\n' : '') +
+      'element face ' + nTri + '\nproperty list uchar int vertex_indices\nend_header\n';
+    const hb = new TextEncoder().encode(head), vs = 12 + (hasN ? 12 : 0) + (hasC ? 3 : 0);
+    const buf = new ArrayBuffer(hb.length + (nV + nP) * vs + nTri * 13), u8 = new Uint8Array(buf), dv = new DataView(buf);
+    u8.set(hb); let o = hb.length;
+    const c8 = (v) => Math.max(0, Math.min(255, Math.round(v * 255)));
+    const put = (px, py, pz, n, c, i) => {
+      dv.setFloat32(o, px, true); dv.setFloat32(o + 4, py, true); dv.setFloat32(o + 8, pz, true); o += 12;
+      if (hasN) { const q = n ? [n[i * 3], n[i * 3 + 1], n[i * 3 + 2]] : [0, 1, 0]; dv.setFloat32(o, q[0], true); dv.setFloat32(o + 4, q[1], true); dv.setFloat32(o + 8, q[2], true); o += 12; }
+      if (hasC) { if (c) { u8[o] = c8(c[i * 3]); u8[o + 1] = c8(c[i * 3 + 1]); u8[o + 2] = c8(c[i * 3 + 2]); } else { u8[o] = u8[o + 1] = u8[o + 2] = 200; } o += 3; }
+    };
+    for (let i = 0; i < nV; i++) put(m.pos[i * 3], m.pos[i * 3 + 1], m.pos[i * 3 + 2], m.nrm, m.col, i);
+    for (let i = 0; i < nP; i++) put(m.pts.pos[i * 3], m.pts.pos[i * 3 + 1], m.pts.pos[i * 3 + 2], null, m.pts.col, i);
+    for (let t = 0; t < nTri; t++) { u8[o++] = 3; dv.setInt32(o, t * 3, true); dv.setInt32(o + 4, t * 3 + 1, true); dv.setInt32(o + 8, t * 3 + 2, true); o += 12; }
+    return new Blob([buf], { type: 'application/octet-stream' });
+  }
+  $('#btnExport').onclick = () => {
+    if (!G) return toast('먼저 모델을 열어 주세요');
+    const fmt = $('#expFmt').value, m = bakeEdit(G.r, currentR());
+    if (fmt === 'stl' && !G.nTri) return toast('STL은 삼각형이 있는 모델만 저장할 수 있어요');
+    try {
+      const blob = fmt === 'obj' ? toOBJ(m, G.name) : fmt === 'stl' ? toSTL(m) : toPLY(m);
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = G.name.replace(/\.[^.]+$/, '') + '_edited.' + fmt;
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+      toast('저장했어요: ' + a.download, true);
+    } catch (e) { toast('저장하지 못했어요: ' + e.message); }
+  };
 
   /* ---- 파일 로딩 ---- */
   const MODEL_RE = /\.(obj|stl|ply|off|glb|gltf)$/i;
