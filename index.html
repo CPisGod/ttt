@@ -1,36 +1,1035 @@
 <!doctype html>
-<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>척추의 뼈해장국 가게</title><style>
-*{box-sizing:border-box}body{margin:0;background:#201c29;color:#fff4db;font-family:system-ui,sans-serif}button{font:inherit;cursor:pointer;border:0;border-radius:12px;background:#f7ce77;color:#302331;font-weight:800;padding:12px}button:hover{filter:brightness(1.1)}button:disabled{opacity:.35;cursor:default}header{padding:22px 24px 14px;max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}h1{font-size:clamp(22px,4vw,36px);margin:0}small{color:#bcaeaa}.stats{max-width:1052px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat{padding:14px;background:#39303e;border:1px solid #65505b;border-radius:14px}.stat strong{display:block;font-size:22px;margin-top:5px}.layout{max-width:1100px;margin:auto;padding:18px 24px;display:grid;grid-template-columns:220px 1fr;gap:22px}.host{background:#332b38;border-radius:20px;padding:18px;text-align:center;align-self:start}.host svg{width:100%;height:270px;image-rendering:pixelated}.bubble{background:#fff0d1;color:#3c2c36;border-radius:12px;padding:14px;min-height:70px;font-weight:700}.stoves{display:grid;grid-template-columns:1fr 1fr;gap:14px}.station{background:#45323a;border:2px solid #75515a;border-radius:19px;padding:14px;position:relative}.topline{display:flex;justify-content:space-between;font-size:13px;color:#e4c7b6}.pot{display:block;width:100%;height:151px;background:transparent;padding:0;position:relative;overflow:hidden}.bowl{position:absolute;width:74%;height:83px;left:13%;bottom:13px;border-radius:15px 15px 65px 65px;background:linear-gradient(90deg,#16151c,#41404a,#15141b);border:5px solid #111017;box-shadow:0 7px 0 #17131d}.soup{position:absolute;left:4%;right:4%;height:42px;top:-10px;background:#25212b;border:6px solid #17151c;border-radius:50%;font-size:27px;line-height:31px;letter-spacing:-7px;text-align:center;transition:background .2s}.filled .soup{background:#967048}.seasoned .soup{background:#b44929}.burnt .soup{background:#302929}.fire{position:absolute;bottom:0;left:0;right:0;color:#ffad54;font-size:21px;letter-spacing:9px;opacity:0}.filled .fire{opacity:1}.steam{position:absolute;top:4px;left:0;right:0;font-size:28px;color:#ead4b8;opacity:0}.boiling .steam{animation:steam 1.3s infinite}.burnt .steam{color:#777}.ingredients{height:25px;font-size:12px;color:#f0d5b5}.track{height:9px;background:#231e2a;border-radius:6px;overflow:hidden;margin:8px 0 12px}.bar{height:100%;width:0;background:#e2b364;transition:width .12s}.actions{display:flex;gap:8px}.actions button{flex:1;padding:9px;font-size:14px}.actions .discard{background:#67505a;color:#fff0dd}.tray{max-width:1052px;margin:0 auto 16px;background:#332b38;border:1px solid #69505b;padding:16px;border-radius:18px}.tray-title{display:flex;justify-content:space-between;margin-bottom:12px;font-size:14px}.materials{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.material{background:#51404b;color:#ffe9cc;border:2px solid transparent;font-size:14px;padding:12px 5px}.material span{display:block;font-size:29px;margin-bottom:6px}.material.selected{background:#f2c16b;color:#2a202b;border-color:#fff0c8;box-shadow:0 0 0 2px #bb8249}.help{max-width:1052px;margin:0 auto 24px;color:#cab8b5;font-size:13px;line-height:1.8;padding:0 8px}.overlay{position:fixed;inset:0;background:#17121ee8;display:flex;align-items:center;justify-content:center;padding:20px;z-index:5;backdrop-filter:blur(8px)}.overlay.hidden{display:none}.modal{max-width:540px;background:#40313c;border:2px solid #c69a61;border-radius:24px;padding:30px;box-shadow:0 20px 90px #0007}.modal h2{font-size:32px;color:#ffdc91;margin:0 0 15px}.modal p{line-height:1.85;color:#e2cbbf}.modal button{width:100%;margin-top:12px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:12px 20px;background:#fff0d6;color:#332333;border-radius:12px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:10;max-width:90%;text-align:center}.toast.show{opacity:1}.bounce{animation:bounce .5s}.idle{animation:idle 2s ease-in-out infinite;transform-origin:center}.happy .idle{animation:bounce .4s 2}.sad svg{transform:rotate(-6deg)}@keyframes idle{50%{transform:translateY(-3px)}}@keyframes bounce{50%{transform:translateY(-14px)}}@keyframes steam{0%{opacity:0;transform:translateY(12px)}50%{opacity:.7}100%{opacity:0;transform:translateY(-8px)}}@media(max-width:700px){header{padding:16px}.stats{margin:0 12px;gap:6px}.stat{padding:9px;font-size:11px}.stat strong{font-size:16px}.layout{padding:12px;display:block}.host{display:flex;align-items:center;gap:10px;padding:6px 14px;margin-bottom:12px}.host svg{width:84px;height:100px;flex-shrink:0}.host .bubble{min-height:0;font-size:13px;flex:1}.host small{display:none}.stoves{gap:8px}.station{padding:10px}.pot{height:130px}.tray{margin:0 12px 12px;padding:12px}.materials{grid-template-columns:repeat(3,1fr)}.material{padding:7px}.material span{display:inline;font-size:23px;margin-right:6px}.help{padding:0 16px}.topline{font-size:11px}}
-</style></head><body>
-<header><div><small>뼈대 있는 맛, 타이밍 있는 장사</small><h1>척추의 뼈해장국 가게</h1></div><button id="sound" aria-label="소리 켜기 끄기">소리 ON</button></header>
-<section class="stats"><div class="stat">남은 시간<strong id="time">90초</strong></div><div class="stat">매출 / 100,000원<strong id="money">0원</strong></div><div class="stat">판매한 해장국<strong id="sold">0그릇</strong></div><div class="stat">실수 / 5회<strong id="mistakes">0회</strong></div></section>
-<main class="layout"><aside class="host" id="host"><svg viewBox="0 0 160 230" role="img" aria-label="붉은 동공, 사각 눈구멍, 갈비뼈와 세 갈래 목도리를 가진 해골 요리사 척추"><g class="idle" stroke="#24212b" stroke-width="3" stroke-linejoin="miter"><path fill="#d1cbb9" d="M51 15h57v9h10v51h-9v16H53V78H42V27h9z"/><path fill="#fff1d4" stroke="none" d="M53 19h50v8H53zM47 30h8v39h-8z"/><path fill="#39303e" d="M54 39h22v22H54zM87 39h22v22H87z"/><path fill="#e44a56" stroke="none" d="M65 46h7v10h-7zM90 46h7v10h-7z"/><path fill="#51444a" d="m79 62-5 9h12z"/><path fill="#f8ead2" d="M58 77h9v13h-9zM70 77h9v13h-9zM82 77h9v13h-9zM94 77h9v13h-9z"/><path fill="#8c3554" d="M51 92h57v14H51zM101 102l29 19-14 3 21 22-18-1 7 19-31-27z"/><path fill="#ede0c5" d="M75 107h13v12H75zM75 121h13v12H75zM75 135h13v12H75zM75 149h13v12H75zM75 163h13v12H75z"/><path fill="none" stroke="#dcd2bc" stroke-width="7" d="M74 114H56v9h18m15-9h18v9H89m-15 8H58v9h16m15-9h16v9H89m-15 8H62v9h12m15-9h12v9H89"/><path fill="#d4c9b2" d="M47 108h10v27H47zM40 136h10v29H40zM110 110h10v25h-10zM119 134h10v23h-10zM62 175h39v12H62zM63 188h11v29H63zM90 188h11v29H90zM55 215h21v10H55zM89 215h22v10H89z"/><path fill="#f3e7cd" d="M36 166h7v8h-7zM44 166h7v8h-7zM36 176h7v7h-7zM44 176h7v7h-7zM120 158h7v8h-7zM129 158h7v8h-7zM120 168h7v7h-7zM129 168h7v7h-7z"/><path stroke="#aa9380" stroke-width="5" d="M135 171V119"/><path fill="#bcb8bd" d="M125 107h20v15h-20z"/></g></svg><div class="bubble" id="bubble">어서 와! 오늘 목표는 10만 원이야.</div><small>주방장 · 척추</small></aside><section class="stoves" id="stoves"></section></main>
-<section class="tray"><div class="tray-title"><b>재료대</b><span id="selection">선택: 육수</span></div><div class="materials" id="materials"></div></section><div class="help">① 재료 선택 → 뚝배기 클릭　② 육수 3초 가열 → 등뼈·우거지·양념장 → 들깨·대파　③ 등뼈 투입 후 <b>8~12초에 제공!</b><br>완벽 10,000원 · 고명 누락 7,000원 · 너무 졸아듦 4,000원 · 필수 재료 누락/덜 끓임: 실수 +1 · 버리기: −500원, 실수 +1<br>등뼈는 미리 삶은 식재료입니다. 다른 탭으로 이동하면 자동으로 일시정지됩니다. <button id="pause" style="padding:5px 10px;margin-top:8px">일시정지</button></div>
-<div class="overlay" id="overlay"><div class="modal"><h2 id="modalTitle">뼈대 있는 한 그릇!</h2><p id="modalText">척추와 함께 네 개의 뚝배기를 관리하세요.<br><b>90초 안에 100,000원</b>을 벌면 성공! 실수 5회면 영업 종료입니다.<br><br>육수를 넣고 3초 기다린 뒤, 등뼈·우거지·양념장과 들깨·대파를 넣으세요. 등뼈 투입 후 <b>8~12초</b>가 판매 타이밍입니다.<br>재료를 선택하고 뚝배기를 눌러 주세요.</p><button id="start">가게 문 열기</button></div></div><div class="toast" id="toast" role="status"></div>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>3D 모델 뷰어</title>
+<style>
+:root{--panel:rgba(22,26,33,.9);--line:#313947;--text:#e8ecf2;--muted:#8e99a9;--accent:#5aa9ff}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;overflow:hidden;background:#1b2028;color:var(--text);
+  font:14px/1.45 system-ui,-apple-system,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;outline:none;cursor:grab}
+#gl.drag{cursor:grabbing}
+.bar{position:fixed;z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#top{top:10px;left:10px;right:10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px}
+.sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+button,select{font:inherit;color:var(--text);background:#262d38;border:1px solid var(--line);border-radius:8px;
+  padding:6px 10px;cursor:pointer;line-height:1.2}
+button:hover,select:hover{border-color:#4a5568;background:#2c3441}
+button.on,button.primary{background:var(--accent);border-color:var(--accent);color:#06121f;font-weight:600}
+select{max-width:200px}
+input[type=color]{width:30px;height:30px;padding:0;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer}
+.seg{display:inline-flex}
+.seg button{border-radius:0;margin-left:-1px}
+.seg button:first-child{border-radius:8px 0 0 8px;margin-left:0}
+.seg button:last-child{border-radius:0 8px 8px 0}
+#info{left:10px;bottom:10px;padding:10px 12px;font-size:12.5px;min-width:190px;max-width:min(380px,calc(100vw - 20px))}
+#info dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 12px}
+#info dt{color:var(--muted)}
+#info dd{margin:0;word-break:break-all}
+#info .warn{margin-top:6px;color:#ffcf70;font-size:12px}
+#help{right:10px;bottom:10px;padding:8px 12px;font-size:12px;color:var(--muted);line-height:1.6}
+#welcome{position:fixed;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;pointer-events:none;padding:16px}
+#welcome .card{pointer-events:auto;text-align:center;max-width:460px;padding:28px 26px;border-radius:16px;
+  background:var(--panel);border:1px solid var(--line)}
+#welcome h1{margin:0 0 6px;font-size:20px}
+#welcome p{margin:6px 0;color:var(--muted);font-size:13px}
+#welcome .btns{display:flex;gap:8px;justify-content:center;margin:16px 0 8px;flex-wrap:wrap}
+#welcome .btns button{padding:9px 16px}
+#mask{position:fixed;inset:10px;z-index:20;display:none;align-items:center;justify-content:center;
+  background:rgba(90,169,255,.16);border:3px dashed var(--accent);border-radius:16px;font-size:22px;pointer-events:none}
+#mask.show{display:flex}
+#toast{position:fixed;left:50%;bottom:70px;transform:translateX(-50%);z-index:30;background:#2a1f1f;border:1px solid #6b3a3a;
+  color:#ffd2d2;padding:10px 16px;border-radius:10px;max-width:min(560px,calc(100vw - 24px));font-size:13px;display:none}
+#toast.show{display:block}
+#toast.ok{background:#1f2a22;border-color:#3a6b4a;color:#d2ffe0}
+#busy{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:25;background:var(--panel);
+  border:1px solid var(--line);padding:12px 18px;border-radius:10px}
+#nogl{position:fixed;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;background:#1b2028;padding:20px;text-align:center}
+@media (max-width:700px){#help{display:none}}
+</style>
+</head>
+<body>
+<canvas id="gl" tabindex="0"></canvas>
+
+<div id="top" class="bar">
+  <button id="btnOpen" class="primary">파일 열기</button>
+  <button id="btnSample">샘플</button>
+  <select id="sel" hidden title="불러온 모델 목록"></select>
+  <span class="sep"></span>
+  <span class="seg" id="modeSeg">
+    <button data-mode="solid" class="on">솔리드</button>
+    <button data-mode="wire">와이어</button>
+    <button data-mode="both">솔리드+와이어</button>
+  </span>
+  <button id="btnShade" title="스무스/플랫 셰이딩">스무스</button>
+  <button id="btnZup" title="Z축이 위쪽인 모델(STL·PLY·CAD 등)이면 켜세요">Z-up</button>
+  <span class="sep"></span>
+  <button id="btnGrid" class="on">격자</button>
+  <button id="btnAxes">축</button>
+  <button id="btnAuto">자동 회전</button>
+  <input type="color" id="bgColor" value="#1b2028" title="배경색">
+  <span class="sep"></span>
+  <button id="btnReset" title="뷰 초기화 (R)">뷰 리셋</button>
+  <button id="btnShot">스크린샷</button>
+</div>
+
+<div id="welcome">
+  <div class="card">
+    <h1>3D 모델 뷰어</h1>
+    <p>파일을 이 화면에 끌어다 놓거나 아래 버튼으로 열어보세요.</p>
+    <div class="btns">
+      <button class="primary" id="btnOpen2">파일 열기</button>
+      <button id="btnSample2">샘플 모델 보기</button>
+    </div>
+    <p><b>OBJ · STL · PLY · OFF · GLB · glTF</b></p>
+    <p>OBJ는 .mtl, .gltf는 .bin 파일을 <b>함께 선택</b>하면 색상/데이터가 같이 적용돼요.</p>
+  </div>
+</div>
+
+<div id="info" class="bar" hidden></div>
+<div id="help" class="bar">
+  왼쪽 드래그: 회전<br>우클릭/Shift 드래그: 이동<br>휠: 확대·축소 &nbsp;|&nbsp; 더블클릭: 리셋<br>R 리셋 · W 와이어 · G 격자
+</div>
+<div id="mask">여기에 놓으면 열려요</div>
+<div id="busy" hidden>불러오는 중…</div>
+<div id="toast"></div>
+<div id="nogl" hidden><div><h2>WebGL을 사용할 수 없어요</h2><p>브라우저의 하드웨어 가속 설정을 확인하거나 다른 브라우저로 열어보세요.</p></div></div>
+<input type="file" id="file" multiple hidden accept=".obj,.mtl,.stl,.ply,.off,.glb,.gltf,.bin">
+
 <script>
 'use strict';
-const CONFIG={duration:90,target:100000,maxMistakes:5,heat:3,perfect:8,over:12,burn:15,prices:{perfect:10000,missing:7000,over:4000},discard:500};
-const ITEMS=[['broth','육수','🫗'],['bone','삶은 등뼈','🦴'],['greens','우거지','🥬'],['sauce','양념장','🥣'],['powder','들깨가루','🥄'],['onion','대파','🌱']];
-const $=id=>document.getElementById(id);let pots=[],selected='broth',running=false,paused=false,elapsed=0,money=0,sold=0,mistakes=0,last=0,sound=true,audio=null,toastTimer;
-const fresh=()=>({items:new Set(),heat:0,cook:0});
-function state(p){if(!p.items.has('broth'))return '빈 뚝배기';if(p.heat<CONFIG.heat)return '육수 가열 중';if(!p.items.has('bone'))return '육수 끓음';if(p.cook<CONFIG.perfect)return '맛이 덜 우러남';if(p.cook<CONFIG.over)return '지금! 가장 맛있음';if(p.cook<CONFIG.burn)return '너무 졸아듦';return '탐 · 버려 주세요';}
-function price(p){if(!['bone','greens','sauce'].every(k=>p.items.has(k))||p.cook<CONFIG.perfect||p.cook>=CONFIG.burn)return 0;if(p.cook>=CONFIG.over)return CONFIG.prices.over;return ['powder','onion'].every(k=>p.items.has(k))?CONFIG.prices.perfect:CONFIG.prices.missing;}
-function beep(freq=600){if(!sound||!audio)return;const o=audio.createOscillator(),g=audio.createGain();o.connect(g);g.connect(audio.destination);o.frequency.value=freq;g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+.13);o.start();o.stop(audio.currentTime+.14);}
-function notify(t){$('toast').textContent=t;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),1800);}
-function react(t,happy){$('bubble').textContent=t;$('host').className='host '+(happy?'happy':'sad');setTimeout(()=>$('host').className='host',800);}
-function select(k){selected=k;$('selection').textContent='선택: '+ITEMS.find(x=>x[0]===k)[1];document.querySelectorAll('.material').forEach(b=>{b.classList.toggle('selected',b.dataset.key===k);b.setAttribute('aria-pressed',b.dataset.key===k);});}
-function add(i){if(!running||paused)return;const p=pots[i],k=selected;if(p.items.has(k))return notify('이미 넣은 재료야!');if(k!=='broth'&&!p.items.has('broth'))return notify('육수부터 넣어 줘!');if(k!=='broth'&&p.heat<CONFIG.heat)return notify('육수가 끓을 때까지 기다려 줘!');if(['powder','onion'].includes(k)&&!p.items.has('bone'))return notify('등뼈를 먼저 넣어 줘!');if(p.cook>=CONFIG.burn)return notify('탄 해장국은 버려야 해!');p.items.add(k);beep(400+ITEMS.findIndex(x=>x[0]===k)*90);render();}
-function serve(i){if(!running||paused)return;const p=pots[i];if(!p.items.size||p.cook>=CONFIG.burn)return;const value=price(p);pots[i]=fresh();if(value){money+=value;sold++;react(value===10000?'뼈대 있는 맛! 완벽한 한 그릇!':'한 그릇 나갑니다!',true);notify('+'+value.toLocaleString()+'원');beep(900);}else{mistakes++;react('앗! 덜 끓였거나 필수 재료가 빠졌어.',false);notify('판매 실패 · 실수 +1');beep(180);}check();render();}
-function discard(i){if(!running||paused||!pots[i].items.size)return;pots[i]=fresh();money=Math.max(0,money-CONFIG.discard);mistakes++;notify('버리기 −500원 · 실수 +1');react('괜찮아, 다음 뚝배기는 맛있게!',false);beep(180);check();render();}
-function check(){if(money>=CONFIG.target)finish(true);else if(mistakes>=CONFIG.maxMistakes)finish(false);}
-function modal(title,text,label,action){$('modalTitle').textContent=title;$('modalText').innerHTML=text;$('start').textContent=label;$('start').onclick=action;$('overlay').classList.remove('hidden');}
-function finish(win){running=false;paused=false;modal(win?'10만 원 달성! 대박 가게!':'오늘의 영업 종료',`${win?'척추의 뼈해장국이 인기 만점이야!':mistakes>=5?'실수가 5회 누적됐어. 다시 도전해 보자!':'시간이 다 됐어. 다음에는 더 빠르게!'}<br><br>최종 매출 <b>${money.toLocaleString()}원</b><br>판매 ${sold}그릇 · 실수 ${mistakes}회`,'다시 가게 열기',start);}
-function start(){pots=Array.from({length:4},fresh);elapsed=money=sold=mistakes=0;running=true;paused=false;last=performance.now();$('overlay').classList.add('hidden');$('bubble').textContent='육수부터! 네 뚝배기를 골고루 챙겨 줘.';select('broth');try{audio=audio||new(window.AudioContext||window.webkitAudioContext)();audio.resume();}catch(e){}render();}
-function pause(){if(!running||paused)return;paused=true;modal('잠깐 쉬어 가기','불과 영업 시간을 모두 멈췄어요.<br>준비되면 다시 시작하세요.','영업 이어 하기',()=>{paused=false;last=performance.now();$('overlay').classList.add('hidden');});}
-function render(){ $('time').textContent=Math.ceil(Math.max(0,CONFIG.duration-elapsed))+'초';$('money').textContent=money.toLocaleString()+'원';$('sold').textContent=sold+'그릇';$('mistakes').textContent=mistakes+'회';pots.forEach((p,i)=>{const el=$('pot'+i),has=p.items.has('broth'),bone=p.items.has('bone'),burn=p.cook>=CONFIG.burn,good=bone&&p.cook>=CONFIG.perfect&&p.cook<CONFIG.over;el.className='pot'+(has?' filled':'')+(p.items.has('sauce')?' seasoned':'')+(has&&p.heat>=CONFIG.heat?' boiling':'')+(burn?' burnt':'');$('state'+i).textContent=state(p);$('state'+i).style.color=good?'#a8ec95':burn?'#ff8b81':'#e4c7b6';$('soup'+i).textContent=ITEMS.filter(x=>x[0]!=='broth'&&p.items.has(x[0])).map(x=>x[2]).join('');$('ing'+i).textContent=ITEMS.filter(x=>p.items.has(x[0])).map(x=>x[1]).join(' · ')||'육수를 넣어 시작하세요';let progress=bone?p.cook/CONFIG.burn:has?p.heat/CONFIG.heat:0;$('bar'+i).style.width=Math.min(100,progress*100)+'%';$('bar'+i).style.background=good?'#9bd682':burn?'#c77979':'#e2b364';$('serve'+i).disabled=!has||burn||!running;$('discard'+i).disabled=!has||!running;$('serve'+i).textContent=good&&price(p)?'제공 '+(price(p)/1000)+'천원':'제공';});}
-$('materials').innerHTML=ITEMS.map(([k,n,e])=>`<button class="material" data-key="${k}"><span>${e}</span>${n}</button>`).join('');document.querySelectorAll('.material').forEach(b=>b.onclick=()=>select(b.dataset.key));
-$('stoves').innerHTML=Array.from({length:4},(_,i)=>`<article class="station"><div class="topline"><b>뚝배기 ${i+1}</b><span id="state${i}"></span></div><button id="pot${i}" class="pot" aria-label="${i+1}번 뚝배기에 선택 재료 넣기"><span class="steam">♨ ♨ ♨</span><span class="fire">● ● ●</span><span class="bowl"><span class="soup" id="soup${i}"></span></span></button><div class="ingredients" id="ing${i}"></div><div class="track"><div class="bar" id="bar${i}"></div></div><div class="actions"><button id="serve${i}">제공</button><button id="discard${i}" class="discard">버리기</button></div></article>`).join('');
-for(let i=0;i<4;i++){$('pot'+i).onclick=()=>add(i);$('serve'+i).onclick=()=>serve(i);$('discard'+i).onclick=()=>discard(i);}
-$('sound').onclick=()=>{sound=!sound;$('sound').textContent='소리 '+(sound?'ON':'OFF');};$('pause').onclick=pause;document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();});$('start').onclick=start;pots=Array.from({length:4},fresh);select('broth');render();
-function frame(now){const dt=(now-last)/1000;last=now;if(running&&!paused){const step=Math.min(dt,Math.max(0,CONFIG.duration-elapsed));elapsed+=step;pots.forEach(p=>{if(p.items.has('broth'))p.heat=Math.min(CONFIG.heat,p.heat+step);if(p.items.has('bone'))p.cook+=step;});if(elapsed>=CONFIG.duration)finish(money>=CONFIG.target);render();}requestAnimationFrame(frame);}requestAnimationFrame(frame);
-</script></body></html>
+/*==PARSERS_START==*/
+/* ===================== 순수 파서 / 지오메트리 함수 (DOM 비의존) ===================== */
+class GF {
+  constructor(n){ this.a = new Float32Array(n || 1024); this.n = 0; }
+  grow(m){
+    if (this.n + m > this.a.length) {
+      let l = this.a.length * 2; while (l < this.n + m) l *= 2;
+      const b = new Float32Array(l); b.set(this.a.subarray(0, this.n)); this.a = b;
+    }
+  }
+  p3(x, y, z){ this.grow(3); const a = this.a; a[this.n++] = x; a[this.n++] = y; a[this.n++] = z; }
+  done(){ return this.a.slice(0, this.n); }
+}
+
+function hsl2rgb(h, s, l){
+  const f = (n) => { const k = (n + h * 12) % 12; const a = s * Math.min(l, 1 - l);
+    return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); };
+  return [f(0), f(8), f(4)];
+}
+
+function mat4mul(a, b){
+  const o = new Float32Array(16);
+  for (let c = 0; c < 4; c++) for (let r = 0; r < 4; r++) {
+    let s = 0; for (let k = 0; k < 4; k++) s += a[k * 4 + r] * b[c * 4 + k];
+    o[c * 4 + r] = s;
+  }
+  return o;
+}
+
+/* ---------- OBJ / MTL ---------- */
+function parseMTL(text){
+  const mats = {}; let cur = null;
+  for (const raw of text.split(/\r?\n/)) {
+    const l = raw.trim(); if (!l || l[0] === '#') continue;
+    const t = l.split(/\s+/); const k = t[0].toLowerCase();
+    if (k === 'newmtl') { cur = t.slice(1).join(' '); mats[cur] = { kd: [0.8, 0.8, 0.8] }; }
+    else if (k === 'kd' && cur) {
+      const v = [+t[1], +t[2], +t[3]];
+      if (v.every(Number.isFinite)) mats[cur].kd = v;
+    }
+  }
+  return mats;
+}
+
+function parseOBJ(text, mats){
+  const vp = new GF(3072), vc = new GF(3072), vn = new GF(3072);
+  let nv = 0, nn = 0, hasVC = false, useMat = false, haveN = true;
+  const oP = new GF(), oN = new GF(), oC = new GF();
+  let cur = [0.8, 0.8, 0.8];
+  const cidx = [], nidx = [];
+  const emit = (j) => {
+    const vi = cidx[j], ni = nidx[j], a = vp.a;
+    oP.p3(a[vi * 3], a[vi * 3 + 1], a[vi * 3 + 2]);
+    if (ni >= 0) oN.p3(vn.a[ni * 3], vn.a[ni * 3 + 1], vn.a[ni * 3 + 2]); else { oN.p3(0, 0, 0); haveN = false; }
+    if (hasVC) oC.p3(vc.a[vi * 3], vc.a[vi * 3 + 1], vc.a[vi * 3 + 2]); else oC.p3(cur[0], cur[1], cur[2]);
+  };
+  const lines = text.split('\n');
+  for (let li = 0; li < lines.length; li++) {
+    const line = lines[li].trim();
+    if (!line || line.charCodeAt(0) === 35) continue;
+    const t = line.split(/\s+/); const k = t[0];
+    if (k === 'v') {
+      vp.p3(+t[1], +t[2], +t[3]);
+      if (t.length >= 7) { vc.p3(+t[4], +t[5], +t[6]); hasVC = true; } else vc.p3(0.8, 0.8, 0.8);
+      nv++;
+    } else if (k === 'vn') { vn.p3(+t[1], +t[2], +t[3]); nn++; }
+    else if (k === 'usemtl') {
+      const nm = t.slice(1).join(' ');
+      if (mats && mats[nm]) { cur = mats[nm].kd; useMat = true; } else cur = [0.8, 0.8, 0.8];
+    } else if (k === 'f') {
+      const n = t.length - 1; if (n < 3) continue;
+      cidx.length = 0; nidx.length = 0; let ok = true;
+      for (let i = 1; i <= n; i++) {
+        const parts = t[i].split('/');
+        let vi = parseInt(parts[0], 10); vi = vi < 0 ? nv + vi : vi - 1;
+        if (!(vi >= 0 && vi < nv)) { ok = false; break; }
+        let ni = -1;
+        if (parts.length > 2 && parts[2] !== '') {
+          ni = parseInt(parts[2], 10); ni = ni < 0 ? nn + ni : ni - 1;
+          if (!(ni >= 0 && ni < nn)) ni = -1;
+        }
+        cidx.push(vi); nidx.push(ni);
+      }
+      if (!ok) continue;
+      for (let i = 1; i < n - 1; i++) { emit(0); emit(i); emit(i + 1); }
+    }
+  }
+  const meta = { format: 'Wavefront OBJ', vertices: nv, zup: false, warnings: [] };
+  if (!oP.n) {
+    if (nv > 0) return { pos: new Float32Array(0), nrm: null, col: null,
+      pts: { pos: vp.done(), col: hasVC ? vc.done() : null }, meta };
+    throw new Error('OBJ에서 정점/면을 찾지 못했어요');
+  }
+  return { pos: oP.done(), nrm: haveN ? oN.done() : null, col: (hasVC || useMat) ? oC.done() : null, pts: null, meta };
+}
+
+/* ---------- STL ---------- */
+function parseSTL(buf){
+  const dv = new DataView(buf);
+  let binary = false, n = 0;
+  if (buf.byteLength >= 84) {
+    n = dv.getUint32(80, true);
+    if (84 + n * 50 === buf.byteLength) binary = true;
+  }
+  if (!binary) {
+    const head = new TextDecoder().decode(new Uint8Array(buf, 0, Math.min(buf.byteLength, 512))).trimStart().toLowerCase();
+    if (!head.startsWith('solid') && buf.byteLength >= 84) {
+      binary = true; n = Math.min(n, Math.floor((buf.byteLength - 84) / 50));
+    }
+  }
+  const o = new GF(); const meta = { format: 'STL ' + (binary ? '(바이너리)' : '(ASCII)'), zup: true, warnings: [] };
+  if (binary) {
+    for (let i = 0; i < n; i++) {
+      const off = 84 + i * 50 + 12;
+      for (let v = 0; v < 3; v++) {
+        const p = off + v * 12;
+        o.p3(dv.getFloat32(p, true), dv.getFloat32(p + 4, true), dv.getFloat32(p + 8, true));
+      }
+    }
+  } else {
+    const text = new TextDecoder().decode(new Uint8Array(buf));
+    const re = /vertex\s+(\S+)\s+(\S+)\s+(\S+)/gi; let m;
+    while ((m = re.exec(text))) o.p3(+m[1], +m[2], +m[3]);
+    o.n -= o.n % 9;
+  }
+  if (!o.n) throw new Error('STL에서 삼각형을 찾지 못했어요');
+  return { pos: o.done(), nrm: null, col: null, pts: null, meta };
+}
+
+/* ---------- PLY ---------- */
+function parsePLY(buf){
+  const u8 = new Uint8Array(buf);
+  const head = new TextDecoder('latin1').decode(u8.subarray(0, Math.min(u8.length, 65536)));
+  const idx = head.indexOf('end_header');
+  if (idx < 0) throw new Error('PLY 헤더(end_header)를 찾지 못했어요');
+  let bodyStart = idx + 10;
+  if (head[bodyStart] === '\r') bodyStart++;
+  if (head[bodyStart] === '\n') bodyStart++;
+  const hl = head.slice(0, idx).split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+  if (hl[0] !== 'ply') throw new Error('PLY 헤더가 올바르지 않아요');
+  let fmt = 'ascii'; const els = [];
+  for (const l of hl.slice(1)) {
+    const t = l.split(/\s+/);
+    if (t[0] === 'format') fmt = t[1];
+    else if (t[0] === 'element') els.push({ name: t[1], count: +t[2], props: [] });
+    else if (t[0] === 'property' && els.length) {
+      const el = els[els.length - 1];
+      if (t[1] === 'list') el.props.push({ list: true, ctype: t[2], itype: t[3], name: t[4] });
+      else el.props.push({ list: false, type: t[1], name: t[2] });
+    }
+  }
+  let rd;
+  if (fmt === 'ascii') {
+    const tk = new TextDecoder().decode(u8.subarray(bodyStart)).split(/\s+/); let ti = tk[0] === '' ? 1 : 0;
+    rd = () => +tk[ti++];
+  } else if (fmt === 'binary_little_endian' || fmt === 'binary_big_endian') {
+    const le = fmt === 'binary_little_endian'; const dv = new DataView(buf); let off = bodyStart;
+    rd = (t) => {
+      let v;
+      switch (t) {
+        case 'char': case 'int8': v = dv.getInt8(off); off += 1; break;
+        case 'uchar': case 'uint8': v = dv.getUint8(off); off += 1; break;
+        case 'short': case 'int16': v = dv.getInt16(off, le); off += 2; break;
+        case 'ushort': case 'uint16': v = dv.getUint16(off, le); off += 2; break;
+        case 'int': case 'int32': v = dv.getInt32(off, le); off += 4; break;
+        case 'uint': case 'uint32': v = dv.getUint32(off, le); off += 4; break;
+        case 'float': case 'float32': v = dv.getFloat32(off, le); off += 4; break;
+        case 'double': case 'float64': v = dv.getFloat64(off, le); off += 8; break;
+        default: throw new Error('지원하지 않는 PLY 자료형: ' + t);
+      }
+      return v;
+    };
+  } else throw new Error('지원하지 않는 PLY 형식: ' + fmt);
+
+  const SLOT = { x: 0, y: 1, z: 2, nx: 3, ny: 4, nz: 5, red: 6, green: 7, blue: 8,
+    diffuse_red: 6, diffuse_green: 7, diffuse_blue: 8 };
+  let nv = 0, vpos = null, vnrm = null, vcol = null; const fi = [], fs = [];
+  try {
+    for (const el of els) {
+      if (el.name === 'vertex') {
+        nv = el.count; vpos = new Float32Array(nv * 3);
+        const slots = el.props.map(p => (p.list ? -1 : (SLOT[p.name] !== undefined ? SLOT[p.name] : -1)));
+        if (slots.includes(3) && slots.includes(4) && slots.includes(5)) vnrm = new Float32Array(nv * 3);
+        if (slots.includes(6) && slots.includes(7) && slots.includes(8)) vcol = new Float32Array(nv * 3);
+        const cs = el.props.map(p => (!p.list && /^u?char$|^u?int8$/.test(p.type)) ? 1 / 255 : 1);
+        for (let i = 0; i < nv; i++) {
+          for (let pi = 0; pi < el.props.length; pi++) {
+            const p = el.props[pi];
+            if (p.list) { const n = rd(p.ctype); for (let k = 0; k < n; k++) rd(p.itype); continue; }
+            const v = rd(p.type); const s = slots[pi];
+            if (s < 0) continue;
+            if (s < 3) vpos[i * 3 + s] = v;
+            else if (s < 6) { if (vnrm) vnrm[i * 3 + s - 3] = v; }
+            else if (vcol) vcol[i * 3 + s - 6] = v * cs[pi];
+          }
+        }
+      } else if (el.name === 'face') {
+        for (let i = 0; i < el.count; i++) {
+          for (const p of el.props) {
+            if (p.list) {
+              const n = rd(p.ctype);
+              if (p.name === 'vertex_indices' || p.name === 'vertex_index') {
+                fs.push(n); for (let k = 0; k < n; k++) fi.push(rd(p.itype));
+              } else for (let k = 0; k < n; k++) rd(p.itype);
+            } else rd(p.type);
+          }
+        }
+      } else {
+        for (let i = 0; i < el.count; i++) for (const p of el.props) {
+          if (p.list) { const n = rd(p.ctype); for (let k = 0; k < n; k++) rd(p.itype); } else rd(p.type);
+        }
+      }
+    }
+  } catch (e) {
+    if (e instanceof RangeError) throw new Error('PLY 파일이 중간에 끊긴 것 같아요');
+    throw e;
+  }
+  if (!vpos) throw new Error('PLY에 vertex 데이터가 없어요');
+  const meta = { format: 'PLY (' + (fmt === 'ascii' ? 'ASCII' : '바이너리') + ')', vertices: nv, zup: true, warnings: [] };
+  if (!fs.length) return { pos: new Float32Array(0), nrm: null, col: null, pts: { pos: vpos, col: vcol }, meta };
+  const oP = new GF(), oN = vnrm ? new GF() : null, oC = vcol ? new GF() : null;
+  const emitV = (vi) => {
+    oP.p3(vpos[vi * 3], vpos[vi * 3 + 1], vpos[vi * 3 + 2]);
+    if (oN) oN.p3(vnrm[vi * 3], vnrm[vi * 3 + 1], vnrm[vi * 3 + 2]);
+    if (oC) oC.p3(vcol[vi * 3], vcol[vi * 3 + 1], vcol[vi * 3 + 2]);
+  };
+  let fp = 0;
+  for (let f = 0; f < fs.length; f++) {
+    const n = fs[f], base = fp; fp += n;
+    if (n < 3) continue;
+    let ok = true; for (let k = 0; k < n; k++) { const v = fi[base + k]; if (!(v >= 0 && v < nv)) { ok = false; break; } }
+    if (!ok) continue;
+    for (let i = 1; i < n - 1; i++) { emitV(fi[base]); emitV(fi[base + i]); emitV(fi[base + i + 1]); }
+  }
+  if (!oP.n) throw new Error('PLY에서 유효한 면을 찾지 못했어요');
+  return { pos: oP.done(), nrm: oN ? oN.done() : null, col: oC ? oC.done() : null, pts: null, meta };
+}
+
+/* ---------- OFF ---------- */
+function parseOFF(text){
+  const lines = [];
+  for (const raw of text.split(/\r?\n/)) { const s = raw.replace(/#.*$/, '').trim(); if (s) lines.push(s); }
+  if (!lines.length) throw new Error('빈 파일이에요');
+  let li = 0; const h = lines[li].split(/\s+/); const head = h[0].toUpperCase();
+  if (!/OFF$/.test(head)) throw new Error('OFF 헤더를 찾지 못했어요');
+  const hasN = head.indexOf('N') >= 0, hasC = head.charAt(0) === 'C';
+  let nv, nf;
+  if (h.length >= 3) { nv = +h[1]; nf = +h[2]; li++; }
+  else { li++; const c = lines[li++].split(/\s+/); nv = +c[0]; nf = +c[1]; }
+  if (!(nv > 0)) throw new Error('OFF 정점 수가 올바르지 않아요');
+  const vp = new Float32Array(nv * 3), vn = hasN ? new Float32Array(nv * 3) : null, vc = hasC ? new Float32Array(nv * 3) : null;
+  const colScale = (a) => (Math.max(a[0], a[1], a[2]) > 1 ? 1 / 255 : 1);
+  for (let i = 0; i < nv; i++) {
+    const t = (lines[li++] || '').split(/\s+/).map(Number);
+    vp[i * 3] = t[0]; vp[i * 3 + 1] = t[1]; vp[i * 3 + 2] = t[2];
+    let k = 3;
+    if (hasN) { vn[i * 3] = t[k]; vn[i * 3 + 1] = t[k + 1]; vn[i * 3 + 2] = t[k + 2]; k += 3; }
+    if (hasC) {
+      const c = [t[k], t[k + 1], t[k + 2]]; const s = colScale(c);
+      vc[i * 3] = c[0] * s; vc[i * 3 + 1] = c[1] * s; vc[i * 3 + 2] = c[2] * s;
+    }
+  }
+  const oP = new GF(), oN = hasN ? new GF() : null, oC = new GF(); let faceColored = false;
+  for (let f = 0; f < nf; f++) {
+    const ln = lines[li++]; if (!ln) break;
+    const t = ln.split(/\s+/).map(Number); const n = t[0];
+    if (!(n >= 3)) continue;
+    const ids = t.slice(1, 1 + n);
+    if (ids.some(v => !(v >= 0 && v < nv))) continue;
+    let fc = [0.8, 0.8, 0.8];
+    if (t.length >= 1 + n + 3) {
+      const c = [t[1 + n], t[2 + n], t[3 + n]]; const s = colScale(c);
+      fc = [c[0] * s, c[1] * s, c[2] * s]; faceColored = true;
+    }
+    const emitV = (vi) => {
+      oP.p3(vp[vi * 3], vp[vi * 3 + 1], vp[vi * 3 + 2]);
+      if (oN) oN.p3(vn[vi * 3], vn[vi * 3 + 1], vn[vi * 3 + 2]);
+      if (vc) oC.p3(vc[vi * 3], vc[vi * 3 + 1], vc[vi * 3 + 2]); else oC.p3(fc[0], fc[1], fc[2]);
+    };
+    for (let i = 1; i < n - 1; i++) { emitV(ids[0]); emitV(ids[i]); emitV(ids[i + 1]); }
+  }
+  const meta = { format: 'OFF', vertices: nv, zup: true, warnings: [] };
+  if (!oP.n) return { pos: new Float32Array(0), nrm: null, col: null, pts: { pos: vp, col: vc }, meta };
+  return { pos: oP.done(), nrm: oN ? oN.done() : null, col: (hasC || faceColored) ? oC.done() : null, pts: null, meta };
+}
+
+/* ---------- glTF / GLB ---------- */
+function parseGLB(buf, resolve){
+  const dv = new DataView(buf);
+  if (buf.byteLength < 20 || dv.getUint32(0, true) !== 0x46546C67) throw new Error('올바른 GLB 파일이 아니에요');
+  const total = Math.min(dv.getUint32(8, true), buf.byteLength);
+  let off = 12, json = null, bin = null;
+  while (off + 8 <= total) {
+    const len = dv.getUint32(off, true), type = dv.getUint32(off + 4, true), start = off + 8;
+    if (type === 0x4E4F534A) json = JSON.parse(new TextDecoder().decode(new Uint8Array(buf, start, len)));
+    else if (type === 0x004E4942 && !bin) bin = buf.slice(start, start + len);
+    off = start + len;
+  }
+  if (!json) throw new Error('GLB에 JSON 데이터가 없어요');
+  return parseGLTF(json, bin, resolve, 'GLB');
+}
+
+function parseGLTF(json, glbBin, resolve, label){
+  const bad = (json.extensionsRequired || []).find(e => /draco|meshopt/i.test(e));
+  if (bad) throw new Error('압축된 glTF(' + bad + ')는 지원하지 않아요. 압축을 풀어 다시 저장해 주세요.');
+  const buffers = (json.buffers || []).map((b, i) => {
+    if (b.uri === undefined) { if (i === 0 && glbBin) return glbBin; throw new Error('buffer 데이터가 없어요'); }
+    if (b.uri.startsWith('data:')) {
+      const bin = atob(b.uri.slice(b.uri.indexOf(',') + 1));
+      const u = new Uint8Array(bin.length); for (let k = 0; k < bin.length; k++) u[k] = bin.charCodeAt(k);
+      return u.buffer;
+    }
+    const r = resolve ? resolve(b.uri) : null;
+    if (!r) throw new Error('외부 파일 "' + b.uri + '"이(가) 필요해요. .gltf와 .bin을 함께 선택하거나 드롭해 주세요.');
+    return r;
+  });
+  const NC = { SCALAR: 1, VEC2: 2, VEC3: 3, VEC4: 4, MAT2: 4, MAT3: 9, MAT4: 16 };
+  const CT = { 5120: [Int8Array, 1, 'getInt8', 127], 5121: [Uint8Array, 1, 'getUint8', 255],
+    5122: [Int16Array, 2, 'getInt16', 32767], 5123: [Uint16Array, 2, 'getUint16', 65535],
+    5125: [Uint32Array, 4, 'getUint32', 1], 5126: [Float32Array, 4, 'getFloat32', 1] };
+  const accCache = new Map();
+  function readAcc(i, asIdx){
+    const key = i + (asIdx ? 'i' : 'f'); if (accCache.has(key)) return accCache.get(key);
+    const a = json.accessors[i]; const nc = NC[a.type]; const ct = CT[a.componentType];
+    if (!ct) throw new Error('지원하지 않는 accessor 자료형');
+    const [TA, sz, getter, maxv] = ct; const n = a.count;
+    const out = new (asIdx ? Uint32Array : Float32Array)(n * nc);
+    if (a.bufferView !== undefined) {
+      const bv = json.bufferViews[a.bufferView]; const buf = buffers[bv.buffer];
+      const base = (bv.byteOffset || 0) + (a.byteOffset || 0); const stride = bv.byteStride || nc * sz;
+      if (stride === nc * sz && base % sz === 0) {
+        out.set(new TA(buf, base, n * nc));
+      } else {
+        const dv = new DataView(buf);
+        for (let k = 0; k < n; k++) for (let c = 0; c < nc; c++) out[k * nc + c] = dv[getter](base + k * stride + c * sz, true);
+      }
+      if (a.normalized && !asIdx && maxv > 1) for (let k = 0; k < out.length; k++) out[k] = Math.max(out[k] / maxv, -1);
+    }
+    accCache.set(key, out); return out;
+  }
+
+  const oP = new GF(), oN = new GF(), oC = new GF(), pP = new GF(), pC = new GF();
+  let allN = true, vtx = 0, anyColor = false; const warnings = []; let sawTexture = false;
+  const lin = (c) => Math.pow(Math.max(0, Math.min(1, c)), 1 / 2.2);
+
+  function nodeLocal(nd){
+    if (nd.matrix) return new Float32Array(nd.matrix);
+    const t = nd.translation || [0, 0, 0], q = nd.rotation || [0, 0, 0, 1], s = nd.scale || [1, 1, 1];
+    const [x, y, z, w] = q;
+    const m00 = 1 - 2 * (y * y + z * z), m01 = 2 * (x * y - z * w), m02 = 2 * (x * z + y * w);
+    const m10 = 2 * (x * y + z * w), m11 = 1 - 2 * (x * x + z * z), m12 = 2 * (y * z - x * w);
+    const m20 = 2 * (x * z - y * w), m21 = 2 * (y * z + x * w), m22 = 1 - 2 * (x * x + y * y);
+    return new Float32Array([m00 * s[0], m10 * s[0], m20 * s[0], 0, m01 * s[1], m11 * s[1], m21 * s[1], 0,
+      m02 * s[2], m12 * s[2], m22 * s[2], 0, t[0], t[1], t[2], 1]);
+  }
+
+  function addPrim(prim, m){
+    if (prim.extensions && /draco/i.test(Object.keys(prim.extensions).join(','))) throw new Error('Draco 압축 glTF는 지원하지 않아요.');
+    const at = prim.attributes || {}; if (at.POSITION === undefined) return;
+    const P = readAcc(at.POSITION); const nvert = P.length / 3; vtx += nvert;
+    const Nn = at.NORMAL !== undefined ? readAcc(at.NORMAL) : null;
+    const Cc = at.COLOR_0 !== undefined ? readAcc(at.COLOR_0) : null;
+    const cn = Cc ? (json.accessors[at.COLOR_0].type === 'VEC4' ? 4 : 3) : 0;
+    let base = [0.8, 0.8, 0.8];
+    const mat = prim.material !== undefined && json.materials ? json.materials[prim.material] : null;
+    if (mat) {
+      const pbr = mat.pbrMetallicRoughness; const sg = mat.extensions && mat.extensions.KHR_materials_pbrSpecularGlossiness;
+      const f = (pbr && pbr.baseColorFactor) || (sg && sg.diffuseFactor) || (pbr ? [1, 1, 1, 1] : null);
+      if (f) { base = [f[0], f[1], f[2]].map(lin); anyColor = true; }
+      if ((pbr && pbr.baseColorTexture) || (sg && sg.diffuseTexture)) sawTexture = true;
+    }
+    if (Cc) anyColor = true;
+    const mode = prim.mode === undefined ? 4 : prim.mode;
+    const idx = prim.indices !== undefined ? readAcc(prim.indices, true) : null;
+    const count = idx ? idx.length : nvert;
+    const get = (k) => (idx ? idx[k] : k);
+    const a = m[0], b = m[1], c = m[2], d = m[4], e = m[5], f2 = m[6], g = m[8], h = m[9], i2 = m[10];
+    // 법선 행렬 = 3x3 부분의 여인수 행렬 (열 u=(a,b,c), v=(d,e,f2), w=(g,h,i2))
+    const ca = [e * i2 - f2 * h, f2 * g - d * i2, d * h - e * g];   // v x w
+    const cb = [h * c - i2 * b, i2 * a - g * c, g * b - h * a];     // w x u
+    const cc = [b * f2 - c * e, c * d - a * f2, a * e - b * d];     // u x v
+    const col = (i, out) => {
+      let r = base[0], gg = base[1], bb = base[2];
+      if (Cc) { r *= lin(Cc[i * cn]); gg *= lin(Cc[i * cn + 1]); bb *= lin(Cc[i * cn + 2]); }
+      out.p3(r, gg, bb);
+    };
+    const emit = (i) => {
+      const x = P[i * 3], y = P[i * 3 + 1], z = P[i * 3 + 2];
+      oP.p3(m[0] * x + m[4] * y + m[8] * z + m[12], m[1] * x + m[5] * y + m[9] * z + m[13], m[2] * x + m[6] * y + m[10] * z + m[14]);
+      if (Nn) {
+        const nx = Nn[i * 3], ny = Nn[i * 3 + 1], nz = Nn[i * 3 + 2];
+        oN.p3(nx * ca[0] + ny * cb[0] + nz * cc[0], nx * ca[1] + ny * cb[1] + nz * cc[1], nx * ca[2] + ny * cb[2] + nz * cc[2]);
+      }
+      col(i, oC);
+    };
+    if (mode === 0) {
+      for (let k = 0; k < count; k++) {
+        const i = get(k), x = P[i * 3], y = P[i * 3 + 1], z = P[i * 3 + 2];
+        pP.p3(m[0] * x + m[4] * y + m[8] * z + m[12], m[1] * x + m[5] * y + m[9] * z + m[13], m[2] * x + m[6] * y + m[10] * z + m[14]);
+        col(i, pC);
+      }
+      return;
+    }
+    if (mode !== 4 && mode !== 5 && mode !== 6) return;
+    if (!Nn) allN = false;
+    if (mode === 4) for (let k = 0; k + 2 < count; k += 3) { emit(get(k)); emit(get(k + 1)); emit(get(k + 2)); }
+    else if (mode === 5) for (let k = 0; k + 2 < count; k++) {
+      if (k % 2 === 0) { emit(get(k)); emit(get(k + 1)); emit(get(k + 2)); }
+      else { emit(get(k + 1)); emit(get(k)); emit(get(k + 2)); }
+    } else for (let k = 1; k + 1 < count; k++) { emit(get(0)); emit(get(k)); emit(get(k + 1)); }
+  }
+
+  function visit(ni, parent, depth){
+    if (depth > 64) return;
+    const nd = json.nodes[ni]; if (!nd) return;
+    const world = mat4mul(parent, nodeLocal(nd));
+    if (nd.mesh !== undefined && json.meshes && json.meshes[nd.mesh]) {
+      for (const p of json.meshes[nd.mesh].primitives || []) addPrim(p, world);
+    }
+    for (const c of nd.children || []) visit(c, world, depth + 1);
+  }
+  const I = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]);
+  const nodes = json.nodes || [];
+  const sc = json.scenes && json.scenes[json.scene || 0];
+  let roots = sc && sc.nodes ? sc.nodes : null;
+  if (!roots) {
+    const child = new Set(); nodes.forEach(n => (n.children || []).forEach(c => child.add(c)));
+    roots = nodes.map((_, i) => i).filter(i => !child.has(i));
+  }
+  if (nodes.length) for (const r of roots) visit(r, I, 0);
+  else if (json.meshes) for (const mesh of json.meshes) for (const p of mesh.primitives || []) addPrim(p, I);
+
+  if (sawTexture) warnings.push('텍스처는 표시되지 않아요 (재질의 기본 색만 사용)');
+  if (json.skins && json.skins.length) warnings.push('스키닝/애니메이션은 적용되지 않아요 (기본 포즈)');
+  const meta = { format: label === 'GLB' ? 'glTF 바이너리 (GLB)' : 'glTF', vertices: vtx, zup: false, warnings };
+  const pts = pP.n ? { pos: pP.done(), col: pC.done() } : null;
+  if (!oP.n && !pts) throw new Error('glTF에서 표시할 지오메트리를 찾지 못했어요');
+  return { pos: oP.done(), nrm: (allN && oP.n) ? oN.done() : null, col: anyColor ? oC.done() : null, pts, meta };
+}
+
+/* ---------- 법선 / 마무리 ---------- */
+function computeNormals(pos, creaseDeg){
+  const nc = pos.length / 3, nt = Math.floor(nc / 3);
+  let mn = [Infinity, Infinity, Infinity], mx = [-Infinity, -Infinity, -Infinity];
+  for (let i = 0; i < pos.length; i += 3) for (let k = 0; k < 3; k++) { const v = pos[i + k]; if (v < mn[k]) mn[k] = v; if (v > mx[k]) mx[k] = v; }
+  const ext = Math.max(mx[0] - mn[0], mx[1] - mn[1], mx[2] - mn[2]) || 1; const inv = 1e5 / ext;
+  const map = new Map(); const vid = new Int32Array(nc); let uniq = 0;
+  for (let c = 0; c < nc; c++) {
+    const ix = Math.round((pos[c * 3] - mn[0]) * inv), iy = Math.round((pos[c * 3 + 1] - mn[1]) * inv), iz = Math.round((pos[c * 3 + 2] - mn[2]) * inv);
+    const key = (ix * 100003 + iy) * 100003 + iz;
+    let id = map.get(key); if (id === undefined) { id = uniq++; map.set(key, id); }
+    vid[c] = id;
+  }
+  const fn = new Float32Array(nt * 3), fu = new Float32Array(nt * 3);
+  for (let t = 0; t < nt; t++) {
+    const o = t * 9;
+    const e1x = pos[o + 3] - pos[o], e1y = pos[o + 4] - pos[o + 1], e1z = pos[o + 5] - pos[o + 2];
+    const e2x = pos[o + 6] - pos[o], e2y = pos[o + 7] - pos[o + 1], e2z = pos[o + 8] - pos[o + 2];
+    const x = e1y * e2z - e1z * e2y, y = e1z * e2x - e1x * e2z, z = e1x * e2y - e1y * e2x;
+    fn[t * 3] = x; fn[t * 3 + 1] = y; fn[t * 3 + 2] = z;
+    const l = Math.hypot(x, y, z);
+    if (l > 0 && Number.isFinite(l)) { fu[t * 3] = x / l; fu[t * 3 + 1] = y / l; fu[t * 3 + 2] = z / l; }
+  }
+  const start = new Int32Array(uniq + 1);
+  for (let c = 0; c < nt * 3; c++) start[vid[c] + 1]++;
+  for (let i = 0; i < uniq; i++) start[i + 1] += start[i];
+  const fillp = start.slice(0, uniq); const list = new Int32Array(nt * 3);
+  for (let c = 0; c < nt * 3; c++) list[fillp[vid[c]]++] = (c / 3) | 0;
+  const out = new Float32Array(nc * 3); const cosT = Math.cos(creaseDeg * Math.PI / 180) - 1e-6;
+  for (let c = 0; c < nt * 3; c++) {
+    const f = (c / 3) | 0, v = vid[c]; let sx = 0, sy = 0, sz = 0;
+    const fx = fu[f * 3], fy = fu[f * 3 + 1], fz = fu[f * 3 + 2];
+    for (let k = start[v]; k < start[v + 1]; k++) {
+      const g = list[k];
+      if (fx * fu[g * 3] + fy * fu[g * 3 + 1] + fz * fu[g * 3 + 2] >= cosT) { sx += fn[g * 3]; sy += fn[g * 3 + 1]; sz += fn[g * 3 + 2]; }
+    }
+    const l = Math.hypot(sx, sy, sz);
+    if (l > 0) { out[c * 3] = sx / l; out[c * 3 + 1] = sy / l; out[c * 3 + 2] = sz / l; }
+    else if (fx || fy || fz) { out[c * 3] = fx; out[c * 3 + 1] = fy; out[c * 3 + 2] = fz; }
+    else out[c * 3 + 1] = 1;
+  }
+  return { normals: out, unique: uniq };
+}
+
+function flatNormals(pos){
+  const nt = Math.floor(pos.length / 9); const out = new Float32Array(nt * 9);
+  for (let t = 0; t < nt; t++) {
+    const o = t * 9;
+    const e1x = pos[o + 3] - pos[o], e1y = pos[o + 4] - pos[o + 1], e1z = pos[o + 5] - pos[o + 2];
+    const e2x = pos[o + 6] - pos[o], e2y = pos[o + 7] - pos[o + 1], e2z = pos[o + 8] - pos[o + 2];
+    let x = e1y * e2z - e1z * e2y, y = e1z * e2x - e1x * e2z, z = e1x * e2y - e1y * e2x;
+    const l = Math.hypot(x, y, z);
+    if (l > 0 && Number.isFinite(l)) { x /= l; y /= l; z /= l; } else { x = 0; y = 1; z = 0; }
+    for (let v = 0; v < 3; v++) { out[o + v * 3] = x; out[o + v * 3 + 1] = y; out[o + v * 3 + 2] = z; }
+  }
+  return out;
+}
+
+function finalize(r){
+  const nTri = Math.floor(r.pos.length / 9);
+  const mn = [Infinity, Infinity, Infinity], mx = [-Infinity, -Infinity, -Infinity];
+  const scan = (a) => { for (let i = 0; i + 2 < a.length; i += 3) for (let k = 0; k < 3; k++) { const v = a[i + k]; if (v < mn[k]) mn[k] = v; if (v > mx[k]) mx[k] = v; } };
+  scan(r.pos); if (r.pts) scan(r.pts.pos);
+  if (![...mn, ...mx].every(Number.isFinite)) throw new Error('유효한 좌표를 찾지 못했어요');
+  r.bbox = { min: mn, max: mx };
+  r.meta.warnings = r.meta.warnings || [];
+  if (nTri) {
+    if (!r.nrm || r.nrm.length !== r.pos.length) {
+      const res = computeNormals(r.pos, 60); r.nrm = res.normals;
+      if (r.meta.vertices == null) r.meta.vertices = res.unique;
+    }
+  }
+  return r;
+}
+
+function makeSample(){
+  const p = 2, q = 3, tub = 200, rad = 20, R = 0.32;
+  const pt = (u) => { const cs = Math.cos(q / p * u); return [(2 + cs) * 0.5 * Math.cos(u), (2 + cs) * 0.5 * Math.sin(u), Math.sin(q / p * u) * 0.5]; };
+  const G = new Float32Array(tub * rad * 3), CO = new Float32Array(tub * rad * 3);
+  for (let i = 0; i < tub; i++) {
+    const u = i / tub * Math.PI * 2 * p, P1 = pt(u), P2 = pt(u + 0.01);
+    const T = [P2[0] - P1[0], P2[1] - P1[1], P2[2] - P1[2]], N0 = [P2[0] + P1[0], P2[1] + P1[1], P2[2] + P1[2]];
+    let B = [T[1] * N0[2] - T[2] * N0[1], T[2] * N0[0] - T[0] * N0[2], T[0] * N0[1] - T[1] * N0[0]];
+    let N = [B[1] * T[2] - B[2] * T[1], B[2] * T[0] - B[0] * T[2], B[0] * T[1] - B[1] * T[0]];
+    const lb = Math.hypot(...B), ln = Math.hypot(...N);
+    B = B.map(v => v / lb); N = N.map(v => v / ln);
+    const col = hsl2rgb((i / tub * p) % 1, 0.65, 0.58);
+    for (let j = 0; j < rad; j++) {
+      const v = j / rad * Math.PI * 2, cx = Math.cos(v), sx = Math.sin(v), k = (i * rad + j) * 3;
+      G[k] = P1[0] + R * (cx * N[0] + sx * B[0]); G[k + 1] = P1[1] + R * (cx * N[1] + sx * B[1]); G[k + 2] = P1[2] + R * (cx * N[2] + sx * B[2]);
+      CO[k] = col[0]; CO[k + 1] = col[1]; CO[k + 2] = col[2];
+    }
+  }
+  const oP = new GF(), oC = new GF();
+  const put = (i, j) => { const k = ((i % tub) * rad + (j % rad)) * 3; oP.p3(G[k], G[k + 1], G[k + 2]); oC.p3(CO[k], CO[k + 1], CO[k + 2]); };
+  for (let i = 0; i < tub; i++) for (let j = 0; j < rad; j++) {
+    put(i, j); put(i + 1, j); put(i, j + 1);
+    put(i, j + 1); put(i + 1, j); put(i + 1, j + 1);
+  }
+  return { pos: oP.done(), nrm: null, col: oC.done(), pts: null,
+    meta: { format: '샘플 (토러스 매듭)', vertices: tub * rad, zup: false, warnings: [] } };
+}
+/*==PARSERS_END==*/
+
+/* ===================== 뷰어 (WebGL + UI) ===================== */
+(function(){
+  const $ = (s) => document.querySelector(s);
+  const cv = $('#gl');
+  let gl = null;
+  try { gl = cv.getContext('webgl', { antialias: true, alpha: false }); } catch (e) {}
+  if (!gl) { $('#nogl').hidden = false; return; }
+
+  const VS = `
+    attribute vec3 aPos; attribute vec3 aNrm; attribute vec3 aCol;
+    uniform mat4 uMV; uniform mat4 uP; uniform mat3 uNM; uniform float uPS;
+    varying vec3 vN; varying vec3 vV; varying vec3 vC;
+    void main(){
+      vec4 mv = uMV * vec4(aPos, 1.0);
+      vV = mv.xyz; vN = uNM * aNrm; vC = aCol;
+      gl_Position = uP * mv; gl_PointSize = uPS;
+    }`;
+  const FS = `
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
+    precision mediump float;
+    #endif
+    uniform float uMode; uniform vec4 uColor;
+    varying vec3 vN; varying vec3 vV; varying vec3 vC;
+    void main(){
+      if (uMode > 1.5) { gl_FragColor = vec4(vC, 1.0); return; }
+      if (uMode > 0.5) { gl_FragColor = uColor; return; }
+      vec3 v = normalize(-vV);
+      float nl = length(vN);
+      vec3 n = nl > 1e-5 ? vN / nl : v;
+      if (dot(n, v) < 0.0) n = -n;
+      vec3 l1 = normalize(vec3(0.3, 0.5, 1.0));
+      vec3 l2 = normalize(vec3(-0.6, -0.2, 0.5));
+      float d1 = max(dot(n, l1), 0.0), d2 = max(dot(n, l2), 0.0);
+      float hemi = 0.5 + 0.5 * n.y;
+      vec3 amb = mix(vec3(0.22, 0.20, 0.19), vec3(0.38, 0.42, 0.50), hemi);
+      vec3 h = normalize(l1 + v);
+      float sp = pow(max(dot(n, h), 0.0), 40.0) * 0.22;
+      vec3 col = vC * (amb + d1 * 0.65 + d2 * 0.2) + vec3(sp);
+      gl_FragColor = vec4(col, 1.0);
+    }`;
+  function sh(type, src){
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+  gl.bindAttribLocation(prog, 0, 'aPos'); gl.bindAttribLocation(prog, 1, 'aNrm'); gl.bindAttribLocation(prog, 2, 'aCol');
+  gl.linkProgram(prog);
+  if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+  const U = {}; for (const n of ['uMV', 'uP', 'uNM', 'uPS', 'uMode', 'uColor']) U[n] = gl.getUniformLocation(prog, n);
+
+  /* ---- 수학 ---- */
+  const FOV = 45 * Math.PI / 180;
+  function persp(fovy, asp, n, f){
+    const t = 1 / Math.tan(fovy / 2), o = new Float32Array(16);
+    o[0] = t / asp; o[5] = t; o[10] = (f + n) / (n - f); o[11] = -1; o[14] = 2 * f * n / (n - f); return o;
+  }
+  function lookAt(e, c, u){
+    let z = [e[0] - c[0], e[1] - c[1], e[2] - c[2]]; let l = Math.hypot(...z); z = z.map(v => v / l);
+    let x = [u[1] * z[2] - u[2] * z[1], u[2] * z[0] - u[0] * z[2], u[0] * z[1] - u[1] * z[0]]; l = Math.hypot(...x); x = x.map(v => v / l);
+    const y = [z[1] * x[2] - z[2] * x[1], z[2] * x[0] - z[0] * x[2], z[0] * x[1] - z[1] * x[0]];
+    const d = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    return new Float32Array([x[0], y[0], z[0], 0, x[1], y[1], z[1], 0, x[2], y[2], z[2], 0, -d(x, e), -d(y, e), -d(z, e), 1]);
+  }
+  function translate(x, y, z){ const m = new Float32Array([1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]); m[12] = x; m[13] = y; m[14] = z; return m; }
+  const hex2rgb = (h) => [parseInt(h.slice(1, 3), 16) / 255, parseInt(h.slice(3, 5), 16) / 255, parseInt(h.slice(5, 7), 16) / 255];
+
+  /* ---- 상태 ---- */
+  const S = { mode: 'solid', smooth: true, grid: true, axes: false, zup: false, auto: false, bg: '#1b2028' };
+  const cam = { yaw: 0.65, pitch: 0.32, dist: 4, target: [0, 0, 0] };
+  let G = null, raf = 0, lastT = 0, dragging = false;
+
+  function mkBuf(data){ const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW); return b; }
+  function bindA(loc, buf, size){ gl.enableVertexAttribArray(loc); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0); }
+  function constA(loc, x, y, z){ gl.disableVertexAttribArray(loc); gl.vertexAttrib3f(loc, x, y, z); }
+
+  const minor = [], major = [];
+  for (let i = -12; i <= 12; i++) { const t = i * 0.25; (i % 4 === 0 ? major : minor).push(t, 0, -3, t, 0, 3, -3, 0, t, 3, 0, t); }
+  const bMinor = mkBuf(new Float32Array(minor)), bMajor = mkBuf(new Float32Array(major));
+  const nMinor = minor.length / 3, nMajor = major.length / 3;
+  const bAxes = mkBuf(new Float32Array([0, 0, 0, 1.4, 0, 0, 0, 0, 0, 0, 1.4, 0, 0, 0, 0, 0, 0, 1.4]));
+
+  /* ---- 모델 ---- */
+  function disposeModel(){
+    if (!G) return;
+    for (const k of ['bPos', 'bNS', 'bNF', 'bCol', 'bWire', 'bPt', 'bPtCol']) if (G[k]) gl.deleteBuffer(G[k]);
+    G = null;
+  }
+  function buildModelMatrix(){
+    const b = G.r.bbox, c = [0, 1, 2].map(i => (b.min[i] + b.max[i]) / 2), ext = [0, 1, 2].map(i => b.max[i] - b.min[i]);
+    const maxD = Math.max(ext[0], ext[1], ext[2]) || 1, s = 2 / maxD;
+    const R = S.zup ? [[1, 0, 0], [0, 0, 1], [0, -1, 0]] : [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+    const M = new Float32Array(16);
+    for (let col = 0; col < 3; col++) for (let row = 0; row < 3; row++) M[col * 4 + row] = s * R[row][col];
+    for (let row = 0; row < 3; row++) M[12 + row] = -s * (R[row][0] * c[0] + R[row][1] * c[1] + R[row][2] * c[2]);
+    M[15] = 1;
+    let minY = Infinity;
+    for (let i = 0; i < 8; i++) {
+      const x = i & 1 ? b.max[0] : b.min[0], y = i & 2 ? b.max[1] : b.min[1], z = i & 4 ? b.max[2] : b.min[2];
+      minY = Math.min(minY, M[1] * x + M[5] * y + M[9] * z + M[13]);
+    }
+    G.M = M; G.ground = minY - 0.002; G.radius = 0.5 * Math.hypot(ext[0], ext[1], ext[2]) * s;
+  }
+  function fitDist(){
+    const r = Math.max(G ? G.radius : 1.5, 0.1), asp = cv.clientWidth / Math.max(1, cv.clientHeight);
+    const half = Math.atan(Math.tan(FOV / 2) * Math.min(1, asp));
+    return Math.min(60, Math.max(1, r / Math.sin(half) * 1.1));
+  }
+  function resetView(){ cam.yaw = 0.65; cam.pitch = 0.32; cam.target = [0, 0, 0]; cam.dist = fitDist(); requestRender(); }
+
+  function setModel(r, name){
+    disposeModel();
+    const nTri = Math.floor(r.pos.length / 9);
+    G = { r, nTri, nPt: r.pts ? r.pts.pos.length / 3 : 0 };
+    if (nTri) { G.bPos = mkBuf(r.pos); G.bNS = mkBuf(r.nrm); G.bCol = r.col ? mkBuf(r.col) : null; }
+    if (G.nPt) { G.bPt = mkBuf(r.pts.pos); G.bPtCol = r.pts.col ? mkBuf(r.pts.col) : null; }
+    S.zup = !!r.meta.zup; buildModelMatrix(); resetView(); showInfo(name, r); syncUI();
+    $('#welcome').hidden = true;
+  }
+  function ensureFlat(){ if (!G.bNF) G.bNF = mkBuf(flatNormals(G.r.pos)); }
+  function ensureWire(){
+    if (G.bWire) return true;
+    if (G.nTri > 1500000) { toast('삼각형이 너무 많아 와이어프레임을 켤 수 없어요 (150만 개 초과)'); S.mode = 'solid'; syncUI(); return false; }
+    const pos = G.r.pos, nt = G.nTri, w = new Float32Array(nt * 18);
+    for (let t = 0; t < nt; t++) {
+      const o = t * 9, q = t * 18;
+      for (let k = 0; k < 3; k++) { w[q + k] = pos[o + k]; w[q + 3 + k] = pos[o + 3 + k]; w[q + 6 + k] = pos[o + 3 + k]; w[q + 9 + k] = pos[o + 6 + k]; w[q + 12 + k] = pos[o + 6 + k]; w[q + 15 + k] = pos[o + k]; }
+    }
+    G.bWire = mkBuf(w); return true;
+  }
+
+  /* ---- 렌더 ---- */
+  function eyePos(){
+    const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch);
+    return [cam.target[0] + cam.dist * cp * Math.sin(cam.yaw), cam.target[1] + cam.dist * sp, cam.target[2] + cam.dist * cp * Math.cos(cam.yaw)];
+  }
+  function setMats(MV, P){
+    gl.uniformMatrix4fv(U.uMV, false, MV); gl.uniformMatrix4fv(U.uP, false, P);
+    gl.uniformMatrix3fv(U.uNM, false, new Float32Array([MV[0], MV[1], MV[2], MV[4], MV[5], MV[6], MV[8], MV[9], MV[10]]));
+  }
+  function render(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.max(1, Math.round(cv.clientWidth * dpr)), h = Math.max(1, Math.round(cv.clientHeight * dpr));
+    if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
+    gl.viewport(0, 0, w, h);
+    const bg = hex2rgb(S.bg), lum = 0.2126 * bg[0] + 0.7152 * bg[1] + 0.0722 * bg[2];
+    gl.clearColor(bg[0], bg[1], bg[2], 1); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+    gl.useProgram(prog); gl.enable(gl.DEPTH_TEST); gl.depthFunc(gl.LEQUAL);
+    const P = persp(FOV, w / h, 0.05, 200), V = lookAt(eyePos(), cam.target, [0, 1, 0]);
+    gl.uniform1f(U.uPS, 3 * dpr);
+    if (G) {
+      setMats(mat4mul(V, G.M), P);
+      if (G.nTri) {
+        if (S.mode !== 'wire') {
+          if (!S.smooth) ensureFlat();
+          if (S.mode === 'both') { gl.enable(gl.POLYGON_OFFSET_FILL); gl.polygonOffset(1, 1); }
+          gl.uniform1f(U.uMode, 0);
+          bindA(0, G.bPos, 3); bindA(1, S.smooth ? G.bNS : G.bNF, 3);
+          if (G.bCol) bindA(2, G.bCol, 3); else constA(2, 0.76, 0.80, 0.86);
+          gl.drawArrays(gl.TRIANGLES, 0, G.nTri * 3);
+          gl.disable(gl.POLYGON_OFFSET_FILL);
+        }
+        if (S.mode !== 'solid' && ensureWire()) {
+          gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+          gl.uniform1f(U.uMode, 1);
+          if (S.mode === 'both') gl.uniform4f(U.uColor, 0, 0, 0, 0.35);
+          else if (lum < 0.5) gl.uniform4f(U.uColor, 0.62, 0.82, 1, 0.95); else gl.uniform4f(U.uColor, 0.1, 0.25, 0.45, 0.95);
+          bindA(0, G.bWire, 3); constA(1, 0, 0, 1); constA(2, 0, 0, 0);
+          gl.drawArrays(gl.LINES, 0, G.nTri * 6);
+          gl.disable(gl.BLEND);
+        }
+      }
+      if (G.nPt) {
+        bindA(0, G.bPt, 3); constA(1, 0, 0, 1);
+        if (G.bPtCol) { gl.uniform1f(U.uMode, 2); bindA(2, G.bPtCol, 3); }
+        else { gl.uniform1f(U.uMode, 1); gl.uniform4f(U.uColor, 0.9, 0.95, 1, 1); constA(2, 0, 0, 0); }
+        gl.drawArrays(gl.POINTS, 0, G.nPt);
+      }
+    }
+    if (S.grid || S.axes) {
+      const gy = G ? G.ground : -1;
+      setMats(mat4mul(V, translate(0, gy, 0)), P);
+      gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); gl.depthMask(false);
+      gl.uniform1f(U.uMode, 1); constA(1, 0, 0, 1); constA(2, 0, 0, 0);
+      if (S.grid) {
+        const gc = lum < 0.5 ? 1 : 0;
+        gl.uniform4f(U.uColor, gc, gc, gc, 0.10); bindA(0, bMinor, 3); gl.drawArrays(gl.LINES, 0, nMinor);
+        gl.uniform4f(U.uColor, gc, gc, gc, 0.24); bindA(0, bMajor, 3); gl.drawArrays(gl.LINES, 0, nMajor);
+      }
+      if (S.axes) {
+        bindA(0, bAxes, 3);
+        gl.uniform4f(U.uColor, 0.95, 0.35, 0.35, 1); gl.drawArrays(gl.LINES, 0, 2);
+        gl.uniform4f(U.uColor, 0.4, 0.85, 0.45, 1); gl.drawArrays(gl.LINES, 2, 2);
+        gl.uniform4f(U.uColor, 0.4, 0.6, 1, 1); gl.drawArrays(gl.LINES, 4, 2);
+      }
+      gl.depthMask(true); gl.disable(gl.BLEND);
+    }
+  }
+  function tick(t){
+    raf = 0;
+    const dt = Math.min(0.05, (t - lastT) / 1000); lastT = t;
+    if (S.auto && !dragging) cam.yaw += dt * 0.6;
+    render();
+    if (S.auto) raf = requestAnimationFrame(tick);
+  }
+  function requestRender(){ if (!raf) raf = requestAnimationFrame(tick); }
+  window.addEventListener('resize', requestRender);
+  cv.addEventListener('webglcontextlost', (e) => e.preventDefault());
+
+  /* ---- 카메라 조작 ---- */
+  function basis(){
+    const cp = Math.cos(cam.pitch), sp = Math.sin(cam.pitch), cy = Math.cos(cam.yaw), sy = Math.sin(cam.yaw);
+    return { right: [cy, 0, -sy], up: [-sp * sy, cp, -sp * cy] };
+  }
+  function pan(dx, dy){
+    const wpp = 2 * cam.dist * Math.tan(FOV / 2) / Math.max(1, cv.clientHeight), b = basis();
+    for (let i = 0; i < 3; i++) cam.target[i] += -b.right[i] * dx * wpp + b.up[i] * dy * wpp;
+  }
+  const clampDist = () => { cam.dist = Math.min(80, Math.max(0.15, cam.dist)); };
+  const ptrs = new Map(); let dmode = 'rot', pinch0 = 0, lastMid = null;
+  const two = () => { const a = [...ptrs.values()]; return { d: Math.hypot(a[0].x - a[1].x, a[0].y - a[1].y), mx: (a[0].x + a[1].x) / 2, my: (a[0].y + a[1].y) / 2 }; };
+  cv.addEventListener('pointerdown', (e) => {
+    cv.focus(); cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (ptrs.size === 1) dmode = (e.button === 2 || e.button === 1 || e.shiftKey || e.ctrlKey) ? 'pan' : 'rot';
+    else if (ptrs.size === 2) { const t = two(); pinch0 = t.d; lastMid = [t.mx, t.my]; }
+    dragging = true; cv.classList.add('drag');
+  });
+  cv.addEventListener('pointermove', (e) => {
+    const p = ptrs.get(e.pointerId); if (!p) return;
+    const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY;
+    if (ptrs.size === 1) {
+      if (dmode === 'rot') { cam.yaw -= dx * 0.006; cam.pitch = Math.max(-1.55, Math.min(1.55, cam.pitch + dy * 0.006)); }
+      else pan(dx, dy);
+    } else if (ptrs.size === 2) {
+      const t = two();
+      if (pinch0 > 0 && t.d > 0) { cam.dist *= pinch0 / t.d; clampDist(); }
+      pinch0 = t.d; pan(t.mx - lastMid[0], t.my - lastMid[1]); lastMid = [t.mx, t.my];
+    }
+    requestRender();
+  });
+  const endPtr = (e) => {
+    ptrs.delete(e.pointerId);
+    if (ptrs.size === 1) { dmode = 'rot'; }
+    if (!ptrs.size) { dragging = false; cv.classList.remove('drag'); }
+  };
+  cv.addEventListener('pointerup', endPtr); cv.addEventListener('pointercancel', endPtr);
+  cv.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    cam.dist *= Math.exp(e.deltaY * (e.deltaMode === 1 ? 0.05 : 0.0015)); clampDist(); requestRender();
+  }, { passive: false });
+  cv.addEventListener('dblclick', resetView);
+  cv.addEventListener('contextmenu', (e) => e.preventDefault());
+
+  /* ---- UI ---- */
+  let toastTimer = 0;
+  function toast(msg, ok){
+    const t = $('#toast'); t.textContent = msg; t.className = 'show' + (ok ? ' ok' : '');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.className = ''; }, ok ? 2500 : 7000);
+  }
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const fmtN = (v) => { const a = Math.abs(v); return a === 0 ? '0' : (a >= 1000 || a < 0.01 ? v.toExponential(2) : String(+v.toPrecision(4))); };
+  function showInfo(name, r){
+    const m = r.meta, nTri = Math.floor(r.pos.length / 9), np = r.pts ? r.pts.pos.length / 3 : 0, b = r.bbox;
+    const rows = [['파일', name], ['형식', m.format]];
+    if (nTri) rows.push(['삼각형', nTri.toLocaleString('ko-KR')]);
+    if (m.vertices != null) rows.push(['정점', m.vertices.toLocaleString('ko-KR')]);
+    if (np) rows.push(['점', np.toLocaleString('ko-KR')]);
+    rows.push(['크기', [0, 1, 2].map(i => fmtN(b.max[i] - b.min[i])).join(' × ')]);
+    const el = $('#info');
+    el.innerHTML = '<dl>' + rows.map(([k, v]) => '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>').join('') + '</dl>' +
+      (m.warnings || []).map(w => '<div class="warn">⚠ ' + esc(w) + '</div>').join('');
+    el.hidden = false;
+  }
+  function syncUI(){
+    document.querySelectorAll('#modeSeg button').forEach(b => b.classList.toggle('on', b.dataset.mode === S.mode));
+    $('#btnShade').textContent = S.smooth ? '스무스' : '플랫';
+    $('#btnShade').classList.toggle('on', S.smooth);
+    $('#btnZup').classList.toggle('on', S.zup);
+    $('#btnGrid').classList.toggle('on', S.grid);
+    $('#btnAxes').classList.toggle('on', S.axes);
+    $('#btnAuto').classList.toggle('on', S.auto);
+  }
+  function setMode(m){ S.mode = m; syncUI(); requestRender(); }
+  document.querySelectorAll('#modeSeg button').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  $('#btnShade').onclick = () => { S.smooth = !S.smooth; syncUI(); requestRender(); };
+  $('#btnZup').onclick = () => { S.zup = !S.zup; if (G) { buildModelMatrix(); } syncUI(); requestRender(); };
+  $('#btnGrid').onclick = () => { S.grid = !S.grid; syncUI(); requestRender(); };
+  $('#btnAxes').onclick = () => { S.axes = !S.axes; syncUI(); requestRender(); };
+  $('#btnAuto').onclick = () => { S.auto = !S.auto; syncUI(); lastT = performance.now(); requestRender(); };
+  $('#bgColor').oninput = (e) => { S.bg = e.target.value; document.body.style.background = S.bg; requestRender(); };
+  $('#btnReset').onclick = resetView;
+  $('#btnShot').onclick = () => {
+    render();
+    cv.toBlob((blob) => {
+      if (!blob) return;
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'model-view.png';
+      document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    }, 'image/png');
+  };
+  window.addEventListener('keydown', (e) => {
+    if (/INPUT|SELECT|TEXTAREA/.test((e.target.tagName || ''))) return;
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const k = e.key.toLowerCase();
+    if (k === 'r') resetView();
+    else if (k === 'w') setMode(S.mode === 'solid' ? 'wire' : S.mode === 'wire' ? 'both' : 'solid');
+    else if (k === 'g') { S.grid = !S.grid; syncUI(); requestRender(); }
+  });
+
+  /* ---- 파일 로딩 ---- */
+  const MODEL_RE = /\.(obj|stl|ply|off|glb|gltf)$/i;
+  let sidecars = new Map(); let modelFiles = [];
+  const base = (n) => decodeURIComponent(n).split(/[\\/]/).pop().toLowerCase();
+  function busy(on, msg){ const b = $('#busy'); b.hidden = !on; if (msg) b.textContent = msg; }
+
+  async function parseFile(file){
+    const ext = file.name.split('.').pop().toLowerCase();
+    if (ext === 'obj') {
+      const text = await file.text(); let mats = null;
+      const m = text.match(/^\s*mtllib\s+(.+)$/m); let mtl = null;
+      if (m) mtl = sidecars.get(base(m[1].trim()));
+      if (!mtl) { const all = [...sidecars.values()].filter(f => /\.mtl$/i.test(f.name)); if (all.length === 1) mtl = all[0]; }
+      if (mtl) mats = parseMTL(await mtl.text());
+      const r = parseOBJ(text, mats);
+      if (m && !mtl) r.meta.warnings.push('.mtl 파일이 없어 기본 색으로 표시했어요 (.obj와 .mtl을 함께 선택하면 색이 적용돼요)');
+      return r;
+    }
+    if (ext === 'stl') return parseSTL(await file.arrayBuffer());
+    if (ext === 'ply') return parsePLY(await file.arrayBuffer());
+    if (ext === 'off') return parseOFF(await file.text());
+    if (ext === 'glb' || ext === 'gltf') {
+      const bins = new Map();
+      for (const [k, f] of sidecars) if (/\.bin$/i.test(f.name)) bins.set(k, await f.arrayBuffer());
+      const resolve = (uri) => bins.get(base(uri)) || null;
+      if (ext === 'glb') return parseGLB(await file.arrayBuffer(), resolve);
+      return parseGLTF(JSON.parse(await file.text()), null, resolve, 'glTF');
+    }
+    throw new Error('지원하지 않는 형식이에요');
+  }
+  async function loadFile(file){
+    busy(true, '불러오는 중… ' + file.name);
+    await new Promise(r => setTimeout(r, 30));
+    try {
+      const r = finalize(await parseFile(file));
+      setModel(r, file.name);
+    } catch (e) {
+      console.error(e); toast('"' + file.name + '"을(를) 열 수 없어요: ' + (e && e.message ? e.message : e));
+    } finally { busy(false); }
+  }
+  async function handleFiles(list){
+    const files = [...list]; if (!files.length) return;
+    sidecars = new Map(files.map(f => [f.name.toLowerCase(), f]));
+    modelFiles = files.filter(f => MODEL_RE.test(f.name));
+    if (!modelFiles.length) {
+      toast('지원하지 않는 파일이에요. OBJ, STL, PLY, OFF, GLB, glTF를 열 수 있어요. (FBX/DAE/3DS/STEP은 GLB로 변환해 주세요)'); return;
+    }
+    const sel = $('#sel');
+    sel.innerHTML = modelFiles.map((f, i) => '<option value="' + i + '">' + esc(f.name) + '</option>').join('');
+    sel.hidden = modelFiles.length < 2;
+    await loadFile(modelFiles[0]);
+  }
+  $('#sel').onchange = (e) => loadFile(modelFiles[+e.target.value]);
+  const openDlg = () => { const f = $('#file'); f.value = ''; f.click(); };
+  $('#btnOpen').onclick = openDlg; $('#btnOpen2').onclick = openDlg;
+  $('#file').onchange = (e) => handleFiles(e.target.files);
+  const loadSample = () => {
+    try { $('#sel').hidden = true; setModel(finalize(makeSample()), '샘플 토러스 매듭'); }
+    catch (e) { console.error(e); toast('샘플을 만들지 못했어요: ' + e.message); }
+  };
+  $('#btnSample').onclick = loadSample; $('#btnSample2').onclick = loadSample;
+
+  let dragDepth = 0;
+  window.addEventListener('dragenter', (e) => { e.preventDefault(); dragDepth++; $('#mask').classList.add('show'); });
+  window.addEventListener('dragover', (e) => { e.preventDefault(); });
+  window.addEventListener('dragleave', (e) => { e.preventDefault(); if (--dragDepth <= 0) { dragDepth = 0; $('#mask').classList.remove('show'); } });
+  window.addEventListener('drop', (e) => {
+    e.preventDefault(); dragDepth = 0; $('#mask').classList.remove('show');
+    if (e.dataTransfer && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+  });
+
+  syncUI(); requestRender();
+})();
+</script>
+</body>
+</html>
