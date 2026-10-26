@@ -389,7 +389,60 @@ function parseOFF(text){
 }
 
 /* ---------- glTF / GLB ---------- */
-function parseGLB(buf, resolve){
+/* Draco 디코더: Draco 압축 파일을 열 때만 CDN에서 불러옴 */
+const DRACO_BASE = 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/draco/gltf/';
+let dracoPromise = null;
+function loadScript(src){
+  return new Promise((ok, no) => {
+    const el = document.createElement('script'); el.src = src; el.onload = ok;
+    el.onerror = () => no(new Error('스크립트를 불러오지 못했어요'));
+    document.head.appendChild(el);
+  });
+}
+function getDraco(){
+  if (!dracoPromise) dracoPromise = (async () => {
+    try {
+      if (typeof DracoDecoderModule === 'undefined') await loadScript(DRACO_BASE + 'draco_wasm_wrapper.js');
+      const wasm = await (await fetch(DRACO_BASE + 'draco_decoder.wasm')).arrayBuffer();
+      return await DracoDecoderModule({ wasmBinary: wasm });
+    } catch (e1) {
+      try {
+        await loadScript(DRACO_BASE + 'draco_decoder.js');
+        return await DracoDecoderModule({});
+      } catch (e2) { throw new Error('Draco 디코더를 불러오지 못했어요. 인터넷 연결을 확인해 주세요.'); }
+    }
+  })();
+  dracoPromise.catch(() => { dracoPromise = null; });
+  return dracoPromise;
+}
+function dracoDecode(D, bytes, wanted){
+  // wanted: { 속성이름: draco 고유 id } -> { indices: Uint32Array, attrs: { 속성이름: Float32Array } }
+  const dec = new D.Decoder(), buf = new D.DecoderBuffer(); buf.Init(bytes, bytes.length);
+  let mesh = null;
+  try {
+    const gt = dec.GetEncodedGeometryType(buf);
+    if (gt !== D.TRIANGULAR_MESH && gt !== D.POINT_CLOUD) throw new Error('지원하지 않는 Draco 형식');
+    mesh = gt === D.TRIANGULAR_MESH ? new D.Mesh() : new D.PointCloud();
+    const st = gt === D.TRIANGULAR_MESH ? dec.DecodeBufferToMesh(buf, mesh) : dec.DecodeBufferToPointCloud(buf, mesh);
+    if (!st.ok() || !mesh.ptr) throw new Error('Draco 디코딩 실패: ' + st.error_msg());
+    const out = { indices: null, attrs: {} };
+    if (gt === D.TRIANGULAR_MESH) {
+      const n = mesh.num_faces() * 3, ptr = D._malloc(n * 4);
+      dec.GetTrianglesUInt32Array(mesh, n * 4, ptr);
+      out.indices = new Uint32Array(D.HEAPU32.buffer, ptr, n).slice(); D._free(ptr);
+    }
+    const np = mesh.num_points();
+    for (const name in wanted) {
+      const a = dec.GetAttributeByUniqueId(mesh, wanted[name]);
+      const nv = np * a.num_components(), ptr = D._malloc(nv * 4);
+      dec.GetAttributeDataArrayForAllPoints(mesh, a, D.DT_FLOAT32, nv * 4, ptr);
+      out.attrs[name] = new Float32Array(D.HEAPF32.buffer, ptr, nv).slice(); D._free(ptr);
+    }
+    return out;
+  } finally { if (mesh) D.destroy(mesh); D.destroy(buf); D.destroy(dec); }
+}
+
+async function parseGLB(buf, resolve){
   const dv = new DataView(buf);
   if (buf.byteLength < 20 || dv.getUint32(0, true) !== 0x46546C67) throw new Error('올바른 GLB 파일이 아니에요');
   const total = Math.min(dv.getUint32(8, true), buf.byteLength);
@@ -401,11 +454,11 @@ function parseGLB(buf, resolve){
     off = start + len;
   }
   if (!json) throw new Error('GLB에 JSON 데이터가 없어요');
-  return parseGLTF(json, bin, resolve, 'GLB');
+  return await parseGLTF(json, bin, resolve, 'GLB');
 }
 
-function parseGLTF(json, glbBin, resolve, label){
-  const bad = (json.extensionsRequired || []).find(e => /draco|meshopt/i.test(e));
+async function parseGLTF(json, glbBin, resolve, label){
+  const bad = (json.extensionsRequired || []).find(e => /meshopt/i.test(e));
   if (bad) throw new Error('압축된 glTF(' + bad + ')는 지원하지 않아요. 압축을 풀어 다시 저장해 주세요.');
   const buffers = (json.buffers || []).map((b, i) => {
     if (b.uri === undefined) { if (i === 0 && glbBin) return glbBin; throw new Error('buffer 데이터가 없어요'); }
@@ -423,6 +476,24 @@ function parseGLTF(json, glbBin, resolve, label){
     5122: [Int16Array, 2, 'getInt16', 32767], 5123: [Uint16Array, 2, 'getUint16', 65535],
     5125: [Uint32Array, 4, 'getUint32', 1], 5126: [Float32Array, 4, 'getFloat32', 1] };
   const accCache = new Map();
+  const dracoPrims = [];
+  for (const mesh of json.meshes || []) for (const p of mesh.primitives || []) if (p.extensions && p.extensions.KHR_draco_mesh_compression) dracoPrims.push(p);
+  if (dracoPrims.length) {
+    const D = await getDraco();
+    for (const p of dracoPrims) {
+      const ex = p.extensions.KHR_draco_mesh_compression, bv = json.bufferViews[ex.bufferView];
+      const bytes = new Uint8Array(buffers[bv.buffer], bv.byteOffset || 0, bv.byteLength);
+      const wanted = {}; for (const k in ex.attributes) if (p.attributes && p.attributes[k] !== undefined) wanted[k] = ex.attributes[k];
+      const r = dracoDecode(D, bytes, wanted);
+      for (const k in r.attrs) {
+        const ai = p.attributes[k], a = json.accessors[ai], ct = a.componentType;
+        const d = r.attrs[k];
+        if (a.normalized && ct !== 5126) { let mx = 0; for (let q = 0; q < d.length; q++) if (Math.abs(d[q]) > mx) mx = Math.abs(d[q]); if (mx > 1) { const sc = { 5120: 127, 5121: 255, 5122: 32767, 5123: 65535 }[ct] || 1; for (let q = 0; q < d.length; q++) d[q] = Math.max(d[q] / sc, -1); } }
+        accCache.set(ai + 'f', d);
+      }
+      if (p.indices !== undefined && r.indices) accCache.set(p.indices + 'i', r.indices);
+    }
+  }
   function readAcc(i, asIdx){
     const key = i + (asIdx ? 'i' : 'f'); if (accCache.has(key)) return accCache.get(key);
     const a = json.accessors[i]; const nc = NC[a.type]; const ct = CT[a.componentType];
@@ -459,7 +530,6 @@ function parseGLTF(json, glbBin, resolve, label){
   }
 
   function addPrim(prim, m){
-    if (prim.extensions && /draco/i.test(Object.keys(prim.extensions).join(','))) throw new Error('Draco 압축 glTF는 지원하지 않아요.');
     const at = prim.attributes || {}; if (at.POSITION === undefined) return;
     const P = readAcc(at.POSITION); const nvert = P.length / 3; vtx += nvert;
     const Nn = at.NORMAL !== undefined ? readAcc(at.NORMAL) : null;
@@ -982,8 +1052,8 @@ function makeSample(){
       const bins = new Map();
       for (const [k, f] of sidecars) if (/\.bin$/i.test(f.name)) bins.set(k, await f.arrayBuffer());
       const resolve = (uri) => bins.get(base(uri)) || null;
-      if (ext === 'glb') return parseGLB(await file.arrayBuffer(), resolve);
-      return parseGLTF(JSON.parse(await file.text()), null, resolve, 'glTF');
+      if (ext === 'glb') return await parseGLB(await file.arrayBuffer(), resolve);
+      return await parseGLTF(JSON.parse(await file.text()), null, resolve, 'glTF');
     }
     throw new Error('지원하지 않는 형식이에요');
   }
